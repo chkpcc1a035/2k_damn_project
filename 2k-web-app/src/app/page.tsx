@@ -1,7 +1,5 @@
+import { redirect } from "next/navigation";
+
 export default function Home() {
-  return (
-    <>
-      <p>go to /auth</p>
-    </>
-  );
+  redirect("/Home");
 }

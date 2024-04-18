@@ -2,7 +2,7 @@
 
 import { IconArrowUp } from "@tabler/icons-react";
 import { useWindowScroll } from "@mantine/hooks";
-import { Affix, Button, Text, Transition, rem } from "@mantine/core";
+import { Affix, ActionIcon, Transition, rem } from "@mantine/core";
 
 export function AffixButton() {
   const [scroll, scrollTo] = useWindowScroll();
@@ -12,15 +12,14 @@ export function AffixButton() {
       <Affix position={{ bottom: 20, right: 20 }}>
         <Transition transition="slide-up" mounted={scroll.y > 0}>
           {(transitionStyles) => (
-            <Button
-              leftSection={
-                <IconArrowUp style={{ width: rem(16), height: rem(16) }} />
-              }
+            <ActionIcon
+              size={"xl"}
+              radius={"xl"}
               style={transitionStyles}
               onClick={() => scrollTo({ y: 0 })}
             >
-              Scroll to top
-            </Button>
+              <IconArrowUp style={{ width: rem(16), height: rem(16) }} />
+            </ActionIcon>
           )}
         </Transition>
       </Affix>

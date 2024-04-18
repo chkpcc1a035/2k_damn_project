@@ -3,7 +3,8 @@ import { SignIn } from "@/components/auth/signin-button";
 import { SignOut } from "@/components/auth/signout-button";
 import { ShoppingCart } from "@/components/ui/ShoppingCart";
 
-import { Anchor, Container, Group } from "@mantine/core";
+import { Anchor, Container, Group, Image } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 
 export default async function Layout({ children }: { children: any }) {
   const session = await auth();
@@ -18,10 +19,17 @@ export default async function Layout({ children }: { children: any }) {
             h={"100%"}
             wrap="nowrap"
           >
-            <>Logo</>
+            <Anchor href="/" underline="never">
+              <Image
+                src={
+                  "https://png.pngtree.com/png-vector/20220711/ourmid/pngtree-automotive-car-logo-png-image_5837187.png"
+                }
+                h={64}
+              />
+            </Anchor>
             {session?.user ? (
               <Group wrap="nowrap">
-                <ShoppingCart />
+                <ShoppingCart user={session.user} />
                 <SignOut />
               </Group>
             ) : (
@@ -34,6 +42,7 @@ export default async function Layout({ children }: { children: any }) {
         </Container>
       </header>
       <main>{children}</main>
+      <Notifications position="bottom-left" />
     </>
   );
 }

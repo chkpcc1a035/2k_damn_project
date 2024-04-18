@@ -1,4 +1,4 @@
-import { Button, ScrollArea, Stack, Text } from "@mantine/core";
+import { ScrollArea, Stack, Text } from "@mantine/core";
 import { CartItemCard } from "./CartItemCard";
 
 type CartType = {
@@ -14,8 +14,8 @@ export function CartItemList({ data }: { data: CartType[] }) {
     <CartItemCard data={item} key={index} />
   ));
   return (
-    <Stack justify="space-between" h={"calc(100vh - 80px)"}>
-      <Text fw={700} fz={28}>
+    <Stack h={"calc(100vh - 130px)"}>
+      <Text fw={700} fz={28} c={"black"}>
         Shopping Cart
       </Text>
       {cartItems.length === 0 ? (
@@ -27,8 +27,6 @@ export function CartItemList({ data }: { data: CartType[] }) {
           <Stack>{cartItems}</Stack>
         </ScrollArea>
       )}
-
-      <Button disabled={cartItems.length === 0}>Check Out</Button>
     </Stack>
   );
 }

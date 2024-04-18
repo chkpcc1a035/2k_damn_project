@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import { persistor, store } from "@/store/store";
 import { PersistGate } from "redux-persist/integration/react";
 
-export function ShoppingCart() {
+export function ShoppingCart({ user }: { user: any }) {
   return (
     <Provider store={store}>
       <PersistGate
@@ -19,7 +19,7 @@ export function ShoppingCart() {
         }
         persistor={persistor}
       >
-        <CartButton />
+        <CartButton user={user} />
       </PersistGate>
     </Provider>
   );

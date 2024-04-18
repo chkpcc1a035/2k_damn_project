@@ -20,21 +20,21 @@ type CartType = {
   quantity: number;
 };
 
-export function CartItemCard({ data }: { data: CartType }) {
+export function CheckoutItemCard({ data }: { data: CartType }) {
   const dispatch = useDispatch();
   return (
-    <Card withBorder radius="md">
+    <Card>
       <Group wrap="nowrap" justify="space-between">
         <Group wrap="nowrap">
           <Image
             src={data.product_image}
             radius={"sm"}
-            w={{ base: 50, xs: 100 }}
+            w={{ base: 60, xs: 130, md: 230 }}
             alt={`${data.product_name}`}
+            mr={{ base: "xs", xs: "md", md: "xl" }}
           />
-          <Divider orientation="vertical" />
           <div>
-            <Text fw={700} fz={{ base: "sm", xs: "md" }} lineClamp={1}>
+            <Text fw={700} lineClamp={1} fz={{ base: "sm", xs: "md" }}>
               {data.product_name}
             </Text>
             <Text fz={{ base: "sm", xs: "md" }}>
@@ -56,7 +56,7 @@ export function CartItemCard({ data }: { data: CartType }) {
           aria-label="Remove"
           color="grey"
           onClick={() => dispatch(removeFromCart(data.product_id))}
-          size="sm"
+          size={"sm"}
         >
           <IconTrash stroke={1} />
         </ActionIcon>

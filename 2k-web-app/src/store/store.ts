@@ -1,3 +1,4 @@
+// src/store/store.ts
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
@@ -13,15 +14,19 @@ import {
 } from "redux-persist";
 
 import cartReducer from "./slices/cartSlice";
+import userReducer from "./slices/userSlice";
+
+// Create a transformation filter for the user slice
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["cart"], // you can choose to persist other reducers as needed
+  whitelist: ["cart", "user"],
 };
 
 const rootReducer = combineReducers({
   cart: cartReducer,
+  user: userReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -10,7 +10,9 @@ import {
   Stack,
   Text,
   Alert,
+  Center,
 } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import { IconInfoCircle } from "@tabler/icons-react";
 import { useState } from "react";
 
@@ -58,6 +60,10 @@ export function ProductCard({
       quantity: 1,
     };
     dispatch(addToCart(value));
+    notifications.show({
+      title: "Add to Cart",
+      message: `${data.product_name} has been add to your cart!`,
+    });
   }
 
   const features = data.product_features.map((item, index) => (
@@ -69,12 +75,19 @@ export function ProductCard({
   return (
     <Card withBorder radius="md" shadow="md">
       <Card.Section>
-        <Image src={data.product_image} alt={`${data.product_name}`} />
+        <Center>
+          <Image
+            src={data.product_image}
+            alt={`${data.product_name}`}
+            h={{ base: 260, lg: 300 }}
+            w="auto"
+            fit="contain"
+            fallbackSrc="https://placehold.co/600x400/white/grey?text=Car+Image"
+            loading="lazy"
+          />
+        </Center>
       </Card.Section>
-      <Stack
-        //    justify="space-between"
-        h={"100%"}
-      >
+      <Stack h={"100%"}>
         <Divider />
 
         <Group justify="space-between">

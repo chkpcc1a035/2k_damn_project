@@ -24,7 +24,8 @@ const data = [
   },
   {
     product_id: "1003",
-    product_image: "https://i.imgur.com/ZL52Q2D.png",
+    product_image:
+      "https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2023/revuelto/revuelto_m.png",
     product_name: "Tesla Model 3",
     product_description: "Compact sedan for urban driving",
     product_tag: "Hot",
@@ -38,7 +39,8 @@ const data = [
   },
   {
     product_id: "1004",
-    product_image: "https://i.imgur.com/ZL52Q2D.png",
+    product_image:
+      "https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg",
     product_name: "Tesla Roadster",
     product_description:
       "Revolutionary sports car with record-breaking acceleration",
@@ -53,7 +55,8 @@ const data = [
   },
   {
     product_id: "1005",
-    product_image: "https://i.imgur.com/ZL52Q2D.png",
+    product_image:
+      "https://www.mbusa.com/content/dam/mb-nafta/us/myco/my23/eqe-sedan/all-vehicles/2023-EQE350-SEDAN-AVP-DR.png",
     product_name: "Tesla Cybertruck",
     product_description:
       "Futuristic electric pickup truck with unmatched durability",
@@ -68,7 +71,8 @@ const data = [
   },
   {
     product_id: "1006",
-    product_image: "https://i.imgur.com/ZL52Q2D.png",
+    product_image:
+      "https://www.mbusa.com/content/dam/mb-nafta/us/myco/my22/eqb-suv/all-vehicles/2022-EQB-AMGLINE-SUV-AVP-DR.png",
     product_name: "Tesla Model Y",
     product_description:
       "Compact SUV with spacious interior and long-range capabilities",
@@ -83,7 +87,8 @@ const data = [
   },
   {
     product_id: "1007",
-    product_image: "https://i.imgur.com/ZL52Q2D.png",
+    product_image:
+      "https://bloximages.newyork1.vip.townnews.com/richmond.com/content/tncms/assets/v3/classifieds/5/3f/53f6d8a1-c912-5f81-bec3-3255e8e37ec3/5e632ca3c2608.image.png",
     product_name: "Tesla Semi",
     product_description:
       "Electric semi-truck designed for efficiency and safety",
@@ -98,7 +103,8 @@ const data = [
   },
   {
     product_id: "1008",
-    product_image: "https://i.imgur.com/ZL52Q2D.png",
+    product_image:
+      "https://mediaservice.audi.com/media/fast/H4sIAAAAAAAAAFvzloG1tIiBOTrayfuvpGh6-m1zJgaGigIGBgZGoDhTtNOaz-I_2DhCHsCElzEwF-SlMwJZKUycmbmJ6an6QD4_I3taTmV-aUkxO0grj5eHtccF31_KMRG3N0rmlvLsX25VzsAK1MUkCSSYNwAJvmlAguMxA5gEmQcSZGgC8ZksmRkYWCuAjEgGEBDUMCASCLO7uIY4evoEAwBqwxYY2QAAAA?wid=850",
     product_name: "Tesla Model B",
     product_description: "Compact electric bike for urban commuters",
     product_tag: null,
@@ -111,7 +117,8 @@ const data = [
   },
   {
     product_id: "1009",
-    product_image: "https://i.imgur.com/ZL52Q2D.png",
+    product_image:
+      "https://mediaservice.audi.com/media/fast/H4sIAAAAAAAAAFvzloG1tIiBOTrayfuvpGh6-m1zJgaGigIGBgZGoDhTtNOaz-I_2DhCHsCElzEwF-SlMwJZKUycmbmJ6an6QD4_I3taTmV-aUkxO0grT37G9MpVr6WVAmsOCLQK_A5hfFf4goEVqIvxKpBgMQASfEuABCcnA5gEmbcJRKwH8ZnsmBkYWCuAjEgGEBDUMCASCLO7uIY4evoEAwDGbomn2QAAAA?wid=850",
     product_name: "Tesla Powerwall",
     product_description: "Home battery storage solution for renewable energy",
     product_tag: "New",
@@ -124,7 +131,7 @@ const data = [
   },
   {
     product_id: "1010",
-    product_image: "https://i.imgur.com/ZL52Q2D.png",
+    product_image: "",
     product_name: "Tesla Solar Roof",
     product_description: "Integrated solar panels for residential roofs",
     product_tag: null,
@@ -137,7 +144,8 @@ const data = [
   },
   {
     product_id: "1011",
-    product_image: "https://i.imgur.com/ZL52Q2D.png",
+    product_image:
+      "https://hips.hearstapps.com/hmg-prod/images/2019-honda-civic-sedan-1558453497.jpg",
     product_name: "Tesla Powerpack",
     product_description: "Commercial-scale energy storage solution",
     product_tag: "Hot",

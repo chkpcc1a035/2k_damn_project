@@ -28,7 +28,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // logic to verify if user exists
           // user = await getUserFromDb(credentials.email, pwHash);
 
-          user = { id: "123", name: "jason" };
+          user = { name: "114f39" };
 
           if (!user) {
             // No user found, so this is their first attempt to login

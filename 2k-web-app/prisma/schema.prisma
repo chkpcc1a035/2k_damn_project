@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  username String
+  username String @unique
   password String
-  userid   Int    @id // Primary Key
+  userid   Int    @id
 }

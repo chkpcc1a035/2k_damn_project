@@ -20,15 +20,10 @@ import {
 } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { TbBrandFacebook, TbBrandTwitter } from "react-icons/tb";
-import Layout from "./layout";
 import SignUpGrid from "@/components/ui/SignUpGrid";
 
-export default async function Page({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const session = auth(); // Assuming `auth` is a synchronous function or has been adjusted accordingly
+export default async function Page() {
+  const session = await auth();
 
   return (
     <main>

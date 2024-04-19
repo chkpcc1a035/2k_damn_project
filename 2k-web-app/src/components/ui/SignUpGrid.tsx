@@ -1,3 +1,4 @@
+"use client";
 //src/components/ui/SignUpGrid.tsx
 import {
   Button,
@@ -11,10 +12,10 @@ import {
 } from "@mantine/core";
 import { TbBrandFacebook, TbBrandTwitter } from "react-icons/tb";
 
-export default function SignUpGrid() {
+export default function SignUpGrid(isSigned: boolean) {
   return (
     <>
-      <Grid>
+      <Grid grow>
         <Grid.Col span={6}>
           <Container w="70%">
             <Stack align="left">
@@ -58,7 +59,7 @@ export default function SignUpGrid() {
             </Stack>
           </Container>
         </Grid.Col>
-        <Grid.Col span={6}>test</Grid.Col>
+        <Grid.Col span={6} bg="#c8d3eb"></Grid.Col>
       </Grid>
     </>
   );

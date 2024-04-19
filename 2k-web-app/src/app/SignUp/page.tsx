@@ -31,13 +31,10 @@ export default async function Page({
   const session = auth(); // Assuming `auth` is a synchronous function or has been adjusted accordingly
 
   return (
-    <>
-      <main>
-        <Layout>
-          <SignUpGrid />
-        </Layout>
-      </main>
-      <Notifications position="bottom-left" />
-    </>
+    <main>
+      <Container>
+        <SignUpGrid isSigned={!session?.user} />
+      </Container>
+    </main>
   );
 }

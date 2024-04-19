@@ -12,6 +12,7 @@ const prisma = new PrismaClient({
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
+  session: { strategy: "jwt" },
   providers: [
     Credentials({
       name: "Credentials",
@@ -28,9 +29,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
       },
       authorize: async (credentials) => {
+        // console.log(
+        //   "SQL Query:",
+        //   prisma.$on("query", (e) => {
+        //     console.log(e.query, e.params);
+        //   })
+        // );
+
         if (!credentials || !credentials.username || !credentials.password) {
           return null;
         }
+        // console.log("Credentials before query: ", credentials);
+        // const user = await prisma.user.findFirst();
+        // console.log("First user found:", user);
 
         const user = await prisma.user.findUnique({
           where: {
@@ -53,6 +64,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           console.log("User authenticated successfully:", credentials.username);
           return { name: user.username, email: user.username }; // or any other user fields you need
         }
+
         return null;
       },
     }),

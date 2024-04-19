@@ -2,9 +2,11 @@ import { auth } from "@/auth";
 import { SignIn } from "@/components/auth/signin-button";
 import { SignOut } from "@/components/auth/signout-button";
 import { ShoppingCart } from "@/components/ui/ShoppingCart";
+import Link from "next/link";
 
 import { Anchor, Container, Group, Image } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
+import { redirect } from "next/dist/server/api-utils";
 
 export default async function Layout({ children }: { children: any }) {
   const session = await auth();
@@ -35,7 +37,9 @@ export default async function Layout({ children }: { children: any }) {
             ) : (
               <Group wrap="nowrap">
                 <SignIn />
-                <Anchor>Sign up</Anchor>
+                <Anchor component={Link} href="/SignUp">
+                  Sign up
+                </Anchor>
               </Group>
             )}
           </Group>

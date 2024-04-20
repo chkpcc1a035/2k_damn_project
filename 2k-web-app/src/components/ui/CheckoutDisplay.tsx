@@ -120,13 +120,15 @@ export function CheckoutDisplay() {
   });
   form.watch("cardNumber", ({ value }) => {
     let v = value.replace(/\D+/g, "");
-    v = v.substring(0, 16);
-    const parts = [];
-    for (let i = 0; i < v.length; i += 4) {
-      parts.push(v.substring(i, i + 4));
+    const output = [];
+    for (let i = 0; i < v.length; i++) {
+      if (i % 4 === 3 && i / 4 !== 15 / 4) {
+        output.push(v[i] + "-");
+      } else {
+        output.push(v[i]);
+      }
     }
-    v = parts.join("-");
-    form.setFieldValue("cardNumber", v);
+    form.setFieldValue("cardNumber", output.join(""));
   });
 
   return (

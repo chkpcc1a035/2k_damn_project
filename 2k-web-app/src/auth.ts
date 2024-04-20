@@ -29,26 +29,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
       },
       authorize: async (credentials) => {
-        // console.log(
-        //   "SQL Query:",
-        //   prisma.$on("query", (e) => {
-        //     console.log(e.query, e.params);
-        //   })
-        // );
-
         if (!credentials || !credentials.username || !credentials.password) {
           return null;
         }
-        // console.log("Credentials before query: ", credentials);
-        // const user = await prisma.user.findFirst();
-        // console.log("First user found:", user);
 
         const user = await prisma.user.findUnique({
           where: {
             username: credentials.username,
           },
         });
-
         console.log("Fetched user:", user); // This will show you the user object fetched from the database
 
         if (!user) {

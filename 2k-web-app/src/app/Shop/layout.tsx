@@ -4,7 +4,7 @@ import { SignOut } from "@/components/auth/signout-button";
 import { ShoppingCart } from "@/components/ui/ShoppingCart";
 import Link from "next/link";
 
-import { Anchor, Container, Group, Image } from "@mantine/core";
+import { Anchor, Container, Group, Image, Text } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { redirect } from "next/dist/server/api-utils";
 
@@ -22,12 +22,9 @@ export default async function Layout({ children }: { children: any }) {
             wrap="nowrap"
           >
             <Anchor href="/" underline="never">
-              <Image
-                src={
-                  "https://png.pngtree.com/png-vector/20220711/ourmid/pngtree-automotive-car-logo-png-image_5837187.png"
-                }
-                h={64}
-              />
+              <Text fw={700} fz={{ base: "h4", xs: "h2" }}>
+                2K Web Shop
+              </Text>
             </Anchor>
             {session?.user ? (
               <Group wrap="nowrap">

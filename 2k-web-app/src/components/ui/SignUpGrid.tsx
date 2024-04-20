@@ -1,7 +1,9 @@
 "use client";
 import {
+  Box,
   Button,
   Card,
+  Center,
   Container,
   Divider,
   Grid,
@@ -54,12 +56,14 @@ export default function SignUpGrid({ isSigned }: { isSigned: boolean }) {
       })}
     >
       <SimpleGrid mt={"5vh"} cols={{ base: 1, xs: 2 }}>
-        <Card withBorder>
+        <Card withBorder radius="md" shadow="sm">
           <Stack align="left">
-            <Text fw={700} size="2rem">
+            <Text fw={700} size="2rem" pl="lg">
               Hello!
             </Text>
-            <Text c="dimmed">Please signup to continue</Text>
+            <Text pl="lg" c="dimmed">
+              Please signup to continue
+            </Text>
             <TextInput
               key="username"
               p="lg"

@@ -42,15 +42,15 @@ export default function SignUpGrid({ isSigned }: { isSigned: boolean }) {
   });
   return (
     <form
-      onSubmit={signUpForm.onSubmit((values) => {
-        console.log("Submitted values:", values);
-        console.log("Password:", values.password);
-        console.log("Re-enter Password:", values.reEnterPassword);
-        if (values.password !== values.reEnterPassword) {
-          console.error("The passwords do not match!");
-        } else {
-          // proceed with the form submission or next steps
-        }
+      onSubmit={signUpForm.onSubmit(async (values) => {
+        const apiResponse = await fetch("api/signup", {
+          method: "POST", // Assuming you're sending a POST request
+          headers: {
+            "Content-Type": "application/json", // Set the content type to JSON
+          },
+          body: JSON.stringify(values), // Stringify the values to send as JSON
+        });
+        // ... handle the response
       })}
     >
       <SimpleGrid mt={"5vh"} cols={{ base: 1, xs: 2 }}>

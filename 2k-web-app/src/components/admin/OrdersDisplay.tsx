@@ -1,4 +1,5 @@
 "use client";
+
 import {
   ActionIcon,
   Badge,
@@ -11,99 +12,87 @@ import {
   Table,
   Text,
 } from "@mantine/core";
-import { IconDots, IconFile, IconSearch } from "@tabler/icons-react";
+import { IconFile, IconSearch } from "@tabler/icons-react";
 import { useState } from "react";
 
 const data = [
   {
-    orderId: "ORD123456",
-    customer: "John Smith",
-    email: "john@example.com",
-    items: 3,
-    status: "success",
-    date: "2024-04-20T08:30:00Z",
-    amount: 150.5,
+    order_id: "ORD123456",
+    order_username: "jason",
+    order_status: "success",
+    order_date: "2024-04-20T08:30:00Z",
+    order_items: [
+      {
+        product_id: "2001",
+        product_image: "https://i.imgur.com/ZL52Q2D.png",
+        product_name: "Audi A4",
+        product_price: 25000,
+        quantity: 1,
+      },
+      {
+        product_id: "2003",
+        product_image:
+          "https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg",
+        product_name: "Mercedes-Benz C-Class",
+        product_price: 30000,
+        quantity: 1,
+      },
+    ],
+    order_summary: {
+      order: 55000,
+      shipping: 30,
+      discount: 0,
+      subtotal: 55030,
+      taxes: 1650.8999999999999,
+      total: 56680.9,
+    },
+    order_detail: {
+      name: "John Smith",
+      email: "john@example.com",
+      phone: "12345678",
+      address: "test",
+      district: "Sha Tin",
+      area: "Hong Kong",
+      cardNumber: "1234-1234-1234-1234",
+      cardDate: "11/28",
+      cardCVC: "123",
+      cardHolder: "test",
+    },
   },
   {
-    orderId: "ORD234567",
-    customer: "Emily Johnson",
-    email: "emily@example.com",
-    items: 2,
-    status: "success",
-    date: "2024-04-20T08:30:00Z",
-    amount: 75.25,
-  },
-  {
-    orderId: "ORD345678",
-    customer: "Michael Brown",
-    email: "michael@example.com",
-    items: 1,
-    status: "success",
-    date: "2024-04-20T08:30:00Z",
-    amount: 30.0,
-  },
-  {
-    orderId: "ORD456789",
-    customer: "Sarah Wilson",
-    email: "sarah@example.com",
-    items: 4,
-    status: "success",
-    date: "2024-04-20T08:30:00Z",
-    amount: 200.75,
-  },
-  {
-    orderId: "ORD567890",
-    customer: "David Lee",
-    email: "david@example.com",
-    items: 2,
-    status: "success",
-    date: "2024-04-20T08:30:00Z",
-    amount: 100.0,
-  },
-  {
-    orderId: "ORD678901",
-    customer: "Emma Garcia",
-    email: "emma@example.com",
-    items: 3,
-    status: "success",
-    date: "2024-04-20T08:30:00Z",
-    amount: 150.5,
-  },
-  {
-    orderId: "ORD789012",
-    customer: "Daniel Martinez",
-    email: "daniel@example.com",
-    items: 1,
-    status: "success",
-    date: "2024-04-20T08:30:00Z",
-    amount: 50.25,
-  },
-  {
-    orderId: "ORD890123",
-    customer: "Olivia Taylor",
-    email: "olivia@example.com",
-    items: 5,
-    status: "success",
-    date: "2024-04-20T08:30:00Z",
-    amount: 250.0,
-  },
-  {
-    orderId: "ORD901234",
-    customer: "James Rodriguez",
-    email: "james@example.com",
-    items: 2,
-    status: "success",
-    date: "2024-04-20T08:30:00Z",
-    amount: 100.0,
-  },
-  {
-    orderId: "ORD012345",
-    customer: "Sophia Brown",
-    email: "sophia@example.com",
-    items: 3,
-    status: "success",
-    date: "2024-04-20T08:30:00Z",
-    amount: 150.5,
+    order_id: "ORD789012",
+    order_username: "alice",
+    order_status: "success",
+    order_date: "2024-04-21T10:45:00Z",
+    order_items: [
+      {
+        product_id: "2005",
+        product_image: "https://i.imgur.com/ZL52Q2D.png",
+        product_name: "Toyota Camry",
+        product_price: 28000,
+        quantity: 2,
+      },
+    ],
+    order_summary: {
+      order: 56000,
+      shipping: 20,
+      discount: 1000,
+      subtotal: 55020,
+      taxes: 1650.6,
+      total: 56670.6,
+    },
+    order_detail: {
+      name: "Alice Johnson",
+      email: "alice@example.com",
+      phone: "98765432",
+      address: "123 Main St",
+      district: "Central",
+      area: "Hong Kong",
+      cardNumber: "5678-5678-5678-5678",
+      cardDate: "09/25",
+      cardCVC: "456",
+      cardHolder: "Alice Johnson",
+    },
   },
 ];
 
@@ -113,30 +102,30 @@ export function OrdersDisplay() {
   const orders = data.map((item, index) => (
     <Table.Tr key={index}>
       <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.orderId}</Text>
+        <Text fz={{ base: "sm" }}>{item.order_id}</Text>
       </Table.Td>
       <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.customer}</Text>
+        <Text fz={{ base: "sm" }}>{item.order_detail.name}</Text>
         <Text fz={{ base: "xs" }} c={"dimmed"}>
-          {item.email}
+          {item.order_detail.email}
         </Text>
       </Table.Td>
       <Table.Td>
         <Badge color="green" variant="light">
-          {item.status}
+          {item.order_status}
         </Badge>
       </Table.Td>
       <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.items}</Text>
+        <Text fz={{ base: "sm" }}>{item.order_items.length}</Text>
       </Table.Td>
       <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.date}</Text>
+        <Text fz={{ base: "sm" }}>{item.order_date}</Text>
       </Table.Td>
       <Table.Td>
         <Text fz={{ base: "sm" }}>
           <NumberFormatter
             prefix="$ "
-            value={item.amount}
+            value={item.order_summary.total}
             thousandSeparator
             decimalScale={2}
             fixedDecimalScale

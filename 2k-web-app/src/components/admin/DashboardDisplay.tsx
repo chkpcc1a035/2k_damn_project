@@ -1,5 +1,5 @@
 import { Stack, Text } from "@mantine/core";
-import { DashboardData } from "./DashboardData";
+import { DashboardStat } from "./DashboardStat";
 import { DashboardTable } from "./DashboardTable";
 
 export function DashboardDisplay() {
@@ -9,7 +9,7 @@ export function DashboardDisplay() {
         <Text fw={700} fz={{ base: "h3", xs: "h1" }}>
           Dashboard
         </Text>
-        <DashboardData />
+        <DashboardStat />
         <DashboardTable />
       </Stack>
     </>

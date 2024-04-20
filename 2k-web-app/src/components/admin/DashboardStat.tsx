@@ -22,7 +22,7 @@ const data = [
   { title: "New customers", icon: "user", value: "188", diff: -30 },
 ] as const;
 
-export function DashboardData() {
+export function DashboardStat() {
   const stats = data.map((item, index) => {
     const Icon = icons[item.icon];
     const DiffIcon = item.diff > 0 ? IconArrowUpRight : IconArrowDownRight;
@@ -35,7 +35,7 @@ export function DashboardData() {
           <Icon size="1.4rem" stroke={1.5} />
         </Group>
 
-        <Group align="flex-end" gap="xs" mt={25}>
+        <Group align="flex-end" gap="xs" mt={"md"}>
           <Text fw={700} fz={{ base: "h2" }}>
             {item.value}
           </Text>

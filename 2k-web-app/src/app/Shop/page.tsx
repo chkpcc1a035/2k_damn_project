@@ -12,7 +12,7 @@ export default async function Page() {
       <Center>
         <Stack maw={1800} w={"100%"} my={"xl"} mx={"md"}>
           <Text fw={700} fz={{ base: "h3", xs: "h1" }}>
-            Shop
+            Car Shop
           </Text>
           <ProductDisplay signin={!session?.user} />
           <AffixButton />

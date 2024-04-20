@@ -24,125 +24,183 @@ import { useState } from "react";
 
 const data = [
   {
-    id: "1",
-    image: "https://example.com/product1.png",
-    name: "Product 1",
-    description: "Description of Product 1",
-    tag: "New",
-    features: ["Feature 1", "Feature 2", "Feature 3"],
-    price: 99.99,
-    stock: 50,
-
-    createdAt: "2024-04-20T08:30:00Z",
-    quantity: 100,
+    product_id: "2001",
+    product_image: "https://i.imgur.com/ZL52Q2D.png",
+    product_name: "Audi A4",
+    product_description: "Luxury Sedan with Quattro",
+    product_tag: "New",
+    product_features: [
+      "5 passengers",
+      "200 km/h top speed",
+      "Quattro all-wheel drive",
+    ],
+    product_price: 25000,
+    product_stock: 30,
+    product_quantity: 100,
+    product_createdAt: "2024-04-20T09:15:00Z",
   },
   {
-    id: "2",
-    image: "https://example.com/product2.png",
-    name: "Product 2",
-    description: "Description of Product 2",
-    features: ["Feature 1", "Feature 2"],
-    price: 149.99,
-    stock: 100,
-
-    createdAt: "2024-04-20T08:30:00Z",
-    quantity: 100,
+    product_id: "2002",
+    product_image:
+      "https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2023/revuelto/revuelto_m.png",
+    product_name: "BMW X5",
+    product_description: "Premium SUV with xDrive",
+    product_tag: "Hot",
+    product_features: [
+      "5 passengers",
+      "250 km/h top speed",
+      "xDrive all-wheel drive",
+      "Panoramic sunroof",
+    ],
+    product_price: 35000,
+    product_stock: 20,
+    product_quantity: 100,
+    product_createdAt: "2024-04-20T09:30:00Z",
   },
   {
-    id: "3",
-    image: "https://example.com/product3.png",
-    name: "Product 3",
-    description: "Description of Product 3",
-    features: ["Feature 1", "Feature 2", "Feature 3", "Feature 4"],
-    price: 199.99,
-    stock: 20,
-
-    createdAt: "2024-04-20T08:30:00Z",
-    quantity: 100,
+    product_id: "2003",
+    product_image:
+      "https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg",
+    product_name: "Mercedes-Benz C-Class",
+    product_description: "Elegant Sedan with AMG Package",
+    product_tag: null,
+    product_features: [
+      "5 passengers",
+      "230 km/h top speed",
+      "AMG performance package",
+      "Leather interior",
+    ],
+    product_price: 30000,
+    product_stock: 25,
+    product_quantity: 100,
+    product_createdAt: "2024-04-20T09:45:00Z",
   },
   {
-    id: "4",
-    image: "https://example.com/product4.png",
-    name: "Product 4",
-    description: "Description of Product 4",
-    features: ["Feature 1"],
-    price: 79.99,
-    stock: 0,
-
-    createdAt: "2024-04-20T08:30:00Z",
-    quantity: 100,
+    product_id: "2004",
+    product_image:
+      "https://mediaservice.audi.com/media/fast/H4sIAAAAAAAAAFvzloG1tIiBOTrayfuvpGh6-m1zJgaGigIGBgZGoDhTtNOaz-I_2DhCHsCElzEwF-SlMwJZKUycmbmJ6an6QD4_I3taTmV-aUkxO0grT37G9MpVr6WVAmsOCLQK_A5hfFf4goEVqIvxKpBgMQASfEuABCcnA5gEmbcJRKwH8ZnsmBkYWCuAjEgGEBDUMCASCLO7uIY4evoEAwDGbomn2QAAAA?wid=850",
+    product_name: "Lexus RX",
+    product_description: "Luxurious SUV with Hybrid Technology",
+    product_tag: null,
+    product_features: [
+      "5 passengers",
+      "220 km/h top speed",
+      "Hybrid technology",
+      "Premium audio system",
+      "Heated seats",
+    ],
+    product_price: 32000,
+    product_stock: 0,
+    product_quantity: 100,
+    product_createdAt: "2024-04-20T10:00:00Z",
   },
   {
-    id: "5",
-    image: "https://example.com/product5.png",
-    name: "Product 5",
-    description: "Description of Product 5",
-    features: ["Feature 1", "Feature 2", "Feature 3", "Feature 4"],
-    price: 299.99,
-    stock: 30,
-
-    createdAt: "2024-04-20T08:30:00Z",
-    quantity: 100,
+    product_id: "2005",
+    product_image:
+      "https://mediaservice.audi.com/media/fast/H4sIAAAAAAAAAFvzloG1tIiBOTrayfuvpGh6-m1zJgaGigIGBgZGoDhTtNOaz-I_2DhCHsCElzEwF-SlMwJZKUycmbmJ6an6QD4_I3taTmV-aUkxO0grj5eHtccF31_KMRG3N0rmlvLsX25VzsAK1MUkCSSYNwAJvmlAguMxA5gEmQcSZGgC8ZksmRkYWCuAjEgGEBDUMCASCLO7uIY4evoEAwBqwxYY2QAAAA?wid=850",
+    product_name: "Toyota Camry",
+    product_description: "Reliable Sedan with Hybrid Option",
+    product_tag: null,
+    product_features: [
+      "5 passengers",
+      "200 km/h top speed",
+      "Hybrid option",
+      "Toyota Safety Sense",
+    ],
+    product_price: 28000,
+    product_stock: 35,
+    product_quantity: 100,
+    product_createdAt: "2024-04-20T10:15:00Z",
   },
   {
-    id: "6",
-    image: "https://example.com/product6.png",
-    name: "Product 6",
-    description: "Description of Product 6",
-    features: ["Feature 1", "Feature 2", "Feature 3"],
-    price: 129.99,
-    stock: 15,
-
-    createdAt: "2024-04-20T08:30:00Z",
-    quantity: 100,
+    product_id: "2006",
+    product_image:
+      "https://bloximages.newyork1.vip.townnews.com/richmond.com/content/tncms/assets/v3/classifieds/5/3f/53f6d8a1-c912-5f81-bec3-3255e8e37ec3/5e632ca3c2608.image.png",
+    product_name: "Ford Mustang",
+    product_description: "Iconic Muscle Car with V8 Engine",
+    product_tag: null,
+    product_features: [
+      "4 passengers",
+      "280 km/h top speed",
+      "V8 engine",
+      "Convertible option",
+    ],
+    product_price: 40000,
+    product_stock: 10,
+    product_quantity: 100,
+    product_createdAt: "2024-04-20T10:30:00Z",
   },
   {
-    id: "7",
-    image: "https://example.com/product7.png",
-    name: "Product 7",
-    description: "Description of Product 7",
-    features: ["Feature 1", "Feature 2", "Feature 3", "Feature 4", "Feature 5"],
-    price: 249.99,
-    stock: 5,
-
-    createdAt: "2024-04-20T08:30:00Z",
-    quantity: 100,
+    product_id: "2007",
+    product_image:
+      "https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg",
+    product_name: "Chevrolet Tahoe",
+    product_description: "Spacious SUV with Tow Package",
+    product_tag: null,
+    product_features: [
+      "8 passengers",
+      "210 km/h top speed",
+      "Tow package",
+      "Infotainment system",
+    ],
+    product_price: 38000,
+    product_stock: 20,
+    product_quantity: 100,
+    product_createdAt: "2024-04-20T10:45:00Z",
   },
   {
-    id: "8",
-    image: "https://example.com/product8.png",
-    name: "Product 8",
-    description: "Description of Product 8",
-    features: ["Feature 1", "Feature 2"],
-    price: 179.99,
-    stock: 10,
-
-    createdAt: "2024-04-20T08:30:00Z",
-    quantity: 100,
+    product_id: "2008",
+    product_image:
+      "https://www.mbusa.com/content/dam/mb-nafta/us/myco/my22/eqb-suv/all-vehicles/2022-EQB-AMGLINE-SUV-AVP-DR.png",
+    product_name: "Nissan Altima",
+    product_description: "Efficient Sedan with Intelligent Mobility",
+    product_tag: null,
+    product_features: [
+      "5 passengers",
+      "190 km/h top speed",
+      "Intelligent Mobility features",
+      "Apple CarPlay",
+    ],
+    product_price: 26000,
+    product_stock: 30,
+    product_quantity: 100,
+    product_createdAt: "2024-04-20T11:00:00Z",
   },
   {
-    id: "9",
-    image: "https://example.com/product9.png",
-    name: "Product 9",
-    description: "Description of Product 9",
-    features: ["Feature 1", "Feature 2", "Feature 3"],
-    price: 99.99,
-    stock: 60,
-
-    createdAt: "2024-04-20T08:30:00Z",
-    quantity: 100,
+    product_id: "2009",
+    product_image:
+      "https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg",
+    product_name: "Honda CR-V",
+    product_description: "Versatile SUV with Honda Sensing",
+    product_tag: null,
+    product_features: [
+      "5 passengers",
+      "200 km/h top speed",
+      "Honda Sensing suite",
+      "All-wheel drive",
+    ],
+    product_price: 30000,
+    product_stock: 25,
+    product_quantity: 100,
+    product_createdAt: "2024-04-20T11:15:00Z",
   },
   {
-    id: "10",
-    image: "https://example.com/product10.png",
-    name: "Product 10",
-    description: "Description of Product 10",
-    features: ["Feature 1", "Feature 2"],
-    price: 159.99,
-    stock: 25,
-
-    createdAt: "2024-04-20T08:30:00Z",
-    quantity: 100,
+    product_id: "2010",
+    product_image:
+      "https://hips.hearstapps.com/hmg-prod/images/2019-honda-civic-sedan-1558453497.jpg",
+    product_name: "Subaru Outback",
+    product_description: "Capable Crossover with Symmetrical All-Wheel Drive",
+    product_tag: null,
+    product_features: [
+      "5 passengers",
+      "210 km/h top speed",
+      "Symmetrical all-wheel drive",
+      "X-Mode traction control",
+    ],
+    product_price: 32000,
+    product_stock: 20,
+    product_quantity: 100,
+    product_createdAt: "2024-04-20T11:30:00Z",
   },
 ];
 
@@ -153,39 +211,42 @@ export function ProductsDisplay() {
     <Table.Tr key={index}>
       <Table.Td>
         <Image
-          src={item.image}
+          src={item.product_image}
           w={50}
           h={50}
           fallbackSrc="https://placehold.co/600x400/grey/black?text=Car+Image"
-          alt={`${item.name}`}
+          alt={`${item.product_name}`}
         />
       </Table.Td>
       <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.name}</Text>
+        <Text fz={{ base: "sm" }}>{item.product_name}</Text>
         <Text fz={{ base: "xs" }} c={"dimmed"}>
-          {item.id}
+          {item.product_id}
         </Text>
       </Table.Td>
       <Table.Td>
         <Text fz={{ base: "sm" }} lineClamp={1}>
-          {item.description}
+          {item.product_description}
         </Text>
       </Table.Td>
       <Table.Td>
-        <Badge color={item.stock === 0 ? "red" : "green"} variant="light">
-          {item.stock === 0 ? "out of stock" : "in stock"}
+        <Badge
+          color={item.product_stock === 0 ? "red" : "green"}
+          variant="light"
+        >
+          {item.product_stock === 0 ? "out of stock" : "in stock"}
         </Badge>
       </Table.Td>
       <Table.Td>
         <Text fz={{ base: "sm" }} lineClamp={1}>
-          {item.features.join(", ")}
+          {item.product_features.join(", ")}
         </Text>
       </Table.Td>
       <Table.Td>
         <Text fz={{ base: "sm" }}>
           <NumberFormatter
             prefix="$ "
-            value={item.price}
+            value={item.product_price}
             thousandSeparator
             decimalScale={2}
             fixedDecimalScale
@@ -195,11 +256,11 @@ export function ProductsDisplay() {
 
       <Table.Td>
         <Text fz={{ base: "sm" }}>
-          {item.stock}/{item.quantity}
+          {item.product_stock}/{item.product_quantity}
         </Text>
       </Table.Td>
       <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.createdAt}</Text>
+        <Text fz={{ base: "sm" }}>{item.product_createdAt}</Text>
       </Table.Td>
 
       <Table.Td>

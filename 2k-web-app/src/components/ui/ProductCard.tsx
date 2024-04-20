@@ -27,6 +27,9 @@ type ProductType = {
   product_tag: string | null;
   product_features: string[];
   product_price: number;
+  product_stock: number;
+  product_quantity: number;
+  product_createdAt: string;
 };
 
 type CartType = {
@@ -137,8 +140,13 @@ export function ProductCard({
             onChange={setOpened}
           >
             <Popover.Target>
-              <Button radius="xl" style={{ flex: 1 }} onClick={addCart}>
-                Add to Cart
+              <Button
+                radius="xl"
+                style={{ flex: 1 }}
+                onClick={addCart}
+                disabled={data.product_stock === 0}
+              >
+                {data.product_stock === 0 ? "Sold Out" : "Add to Cart"}
               </Button>
             </Popover.Target>
 

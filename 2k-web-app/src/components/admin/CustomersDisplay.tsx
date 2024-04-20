@@ -14,74 +14,74 @@ import { IconDots, IconFile, IconSearch, IconTrash } from "@tabler/icons-react";
 
 const data = [
   {
-    id: "1",
-    username: "user1",
-    orders: 5,
-    spend: 250.75,
-    createdAt: "2024-04-20T08:30:00Z",
+    customer_id: "1",
+    customer_username: "user1",
+    customer_orders: 5,
+    customer_spend: 250.75,
+    customer_createdAt: "2024-04-20T08:30:00Z",
   },
   {
-    id: "2",
-    username: "user2",
-    orders: 3,
-    spend: 120.5,
-    createdAt: "2024-04-19T15:45:00Z",
+    customer_id: "2",
+    customer_username: "user2",
+    customer_orders: 3,
+    customer_spend: 120.5,
+    customer_createdAt: "2024-04-19T15:45:00Z",
   },
   {
-    id: "3",
-    username: "user3",
-    orders: 10,
-    spend: 500.25,
-    createdAt: "2024-04-18T12:20:00Z",
+    customer_id: "3",
+    customer_username: "user3",
+    customer_orders: 10,
+    customer_spend: 500.25,
+    customer_createdAt: "2024-04-18T12:20:00Z",
   },
   {
-    id: "4",
-    username: "user4",
-    orders: 8,
-    spend: 400.0,
-    createdAt: "2024-04-17T09:10:00Z",
+    customer_id: "4",
+    customer_username: "user4",
+    customer_orders: 8,
+    customer_spend: 400.0,
+    customer_createdAt: "2024-04-17T09:10:00Z",
   },
   {
-    id: "5",
-    username: "user5",
-    orders: 2,
-    spend: 90.25,
-    createdAt: "2024-04-16T17:55:00Z",
+    customer_id: "5",
+    customer_username: "user5",
+    customer_orders: 2,
+    customer_spend: 90.25,
+    customer_createdAt: "2024-04-16T17:55:00Z",
   },
   {
-    id: "6",
-    username: "user6",
-    orders: 6,
-    spend: 300.9,
-    createdAt: "2024-04-15T11:40:00Z",
+    customer_id: "6",
+    customer_username: "user6",
+    customer_orders: 6,
+    customer_spend: 300.9,
+    customer_createdAt: "2024-04-15T11:40:00Z",
   },
   {
-    id: "7",
-    username: "user7",
-    orders: 4,
-    spend: 200.45,
-    createdAt: "2024-04-14T18:25:00Z",
+    customer_id: "7",
+    customer_username: "user7",
+    customer_orders: 4,
+    customer_spend: 200.45,
+    customer_createdAt: "2024-04-14T18:25:00Z",
   },
   {
-    id: "8",
-    username: "user8",
-    orders: 7,
-    spend: 350.6,
-    createdAt: "2024-04-13T07:15:00Z",
+    customer_id: "8",
+    customer_username: "user8",
+    customer_orders: 7,
+    customer_spend: 350.6,
+    customer_createdAt: "2024-04-13T07:15:00Z",
   },
   {
-    id: "9",
-    username: "user9",
-    orders: 9,
-    spend: 450.8,
-    createdAt: "2024-04-12T14:05:00Z",
+    customer_id: "9",
+    customer_username: "user9",
+    customer_orders: 9,
+    customer_spend: 450.8,
+    customer_createdAt: "2024-04-12T14:05:00Z",
   },
   {
-    id: "10",
-    username: "user10",
-    orders: 1,
-    spend: 50.1,
-    createdAt: "2024-04-11T20:50:00Z",
+    customer_id: "10",
+    customer_username: "user10",
+    customer_orders: 1,
+    customer_spend: 50.1,
+    customer_createdAt: "2024-04-11T20:50:00Z",
   },
 ];
 
@@ -89,21 +89,21 @@ export function CustomersDisplay() {
   const customers = data.map((item, index) => (
     <Table.Tr key={index}>
       <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.username}</Text>
+        <Text fz={{ base: "sm" }}>{item.customer_username}</Text>
         <Text fz={{ base: "xs" }} c={"dimmed"}>
-          {item.id}
+          {item.customer_id}
         </Text>
       </Table.Td>
       <Table.Td>
         <Text fz={{ base: "sm" }} lineClamp={1}>
-          {item.orders}
+          {item.customer_orders}
         </Text>
       </Table.Td>
       <Table.Td>
         <Text fz={{ base: "sm" }}>
           <NumberFormatter
             prefix="$ "
-            value={item.spend}
+            value={item.customer_spend}
             thousandSeparator
             decimalScale={2}
             fixedDecimalScale
@@ -111,7 +111,7 @@ export function CustomersDisplay() {
         </Text>
       </Table.Td>
       <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.createdAt}</Text>
+        <Text fz={{ base: "sm" }}>{item.customer_createdAt}</Text>
       </Table.Td>
 
       <Table.Td>

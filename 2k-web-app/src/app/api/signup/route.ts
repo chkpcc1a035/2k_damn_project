@@ -1,6 +1,8 @@
 //src/app/api/auth/[...nextauth]/route.ts
 import { handlers } from "@/auth"; // Referring to the auth.ts we just created
 // export const { GET, POST } = handlers;
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import prisma from "../../../prismaClient";
 export async function POST(request: Request) {
   // const cookieStore = cookies()
   // const token = cookieStore.get('token')

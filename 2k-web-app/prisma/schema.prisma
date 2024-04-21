@@ -18,3 +18,57 @@ model User {
   password String
   userid    Int     @id @default(autoincrement())
 }
+
+model Product {
+  id               String    @id @default(uuid()) // changed ProductID to id and use UUIDs
+  image            String?   // renamed ProductImage to image
+  name             String    // renamed ProductName to name
+  description      String?   // renamed ProductDescription to description
+  tag              String?   // renamed ProductTag to tag
+  features         String?   // renamed ProductFeatures to features
+  price            Float     // renamed ProductPrice to price
+  stock            Int       // renamed ProductStock to stock
+  quantity         Int       // renamed ProductQuantity to quantity
+  createdAt        DateTime  // renamed CreatedAt to createdAt, it will auto generate this field
+  OrderItem        OrderItem[]  // Relation field
+}
+
+model Customer {
+  id         Int      @id @default(autoincrement()) // renamed CustomerID to id
+  name       String   // Use as is
+  email      String?  // Use as is
+  phone      String?  // Use as is
+  address    String?  // Use as is
+  district   String?  // Use as is
+  area       String?  // Use as is
+  cardNumber String?  // renamed CardNumber to cardNumber
+  cardHolder String?  // renamed CardHolder to cardHolder
+  cardDate   String?  // renamed CardDate to cardDate
+  cardCVC    String?  // renamed CardCVC to cardCVC
+  orders     Order[]  // Relation field
+}
+
+model Order {
+  id          Int       @id @default(autoincrement()) // renamed OrderID to id
+  customer    Customer? @relation(fields: [customerId], references: [id])
+  customerId  Int?      // renamed CustomerID to customerId
+  orderTotal  Float     // renamed OrderTotal to orderTotal
+  shippingCost Float    // renamed ShippingCost to shippingCost
+  discount    Float     // renamed Discount to discount
+  subtotal    Float     // renamed Subtotal to subtotal
+  taxes       Float     // renamed Taxes to taxes
+  total       Float     // renamed Total to total
+  createdAt   DateTime  @default(now()) // renamed CreatedAt to createdAt
+  orderItems  OrderItem[] // Relation field
+}
+
+model OrderItem {
+  id           Int      @id @default(autoincrement()) // renamed ItemID to id
+  order        Order?   @relation(fields: [orderId], references: [id])
+  orderId      Int?     // renamed OrderID to orderId
+  product      Product? @relation(fields: [productId], references: [id])
+  productId    String?  // Corrected type to match Product's ID
+  quantity     Int      // Use as is
+  productPrice Float    // renamed ProductPrice to productPrice
+}
+

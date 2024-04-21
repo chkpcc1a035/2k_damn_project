@@ -16,5 +16,5 @@ datasource db {
 model User {
   username String @unique
   password String
-  userid   Int    @id
+  userid    Int     @id @default(autoincrement())
 }

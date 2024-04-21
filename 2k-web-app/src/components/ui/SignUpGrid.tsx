@@ -9,6 +9,7 @@ import {
   Grid,
   Group,
   Image,
+  Modal,
   SimpleGrid,
   Skeleton,
   Stack,
@@ -16,24 +17,23 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { IconBrandMeta, IconBrandX } from "@tabler/icons-react";
-import { sign } from "crypto";
-import { TbBrandFacebook, TbBrandTwitter } from "react-icons/tb";
+import { useDisclosure, useDebouncedValue } from "@mantine/hooks";
+import { useEffect, useState } from "react";
 
 export default function SignUpGrid({ isSigned }: { isSigned: boolean }) {
+  const [usernameExists, setUsernameExists] = useState(false);
+
   const signUpForm = useForm({
-    mode: "uncontrolled",
     initialValues: {
       username: "",
       password: "",
       reEnterPassword: "",
     },
-
     validate: {
       username: (value) =>
-        /.{8,}/.test(value)
-          ? null
-          : "The username must be at least 8 characters long",
+        value.length < 8
+          ? "The username must be at least 8 characters long"
+          : null,
       password: (value) =>
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(value)
           ? null
@@ -42,17 +42,52 @@ export default function SignUpGrid({ isSigned }: { isSigned: boolean }) {
         value === values.password ? null : "Passwords do not match",
     },
   });
+
+  const [debouncedUsername] = useDebouncedValue(
+    signUpForm.values.username,
+    500
+  );
+
+  useEffect(() => {
+    if (debouncedUsername.length >= 8) {
+      checkUsernameExists(debouncedUsername);
+    } else {
+      setUsernameExists(false);
+      signUpForm.setFieldError("username", null);
+    }
+  }, [debouncedUsername]);
+
+  async function checkUsernameExists(username: string) {
+    try {
+      const response = await fetch("api/usernameExist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username }),
+      });
+      const { exists } = await response.json();
+      setUsernameExists(exists);
+      signUpForm.setFieldError(
+        "username",
+        exists ? "Username is already taken" : null
+      );
+    } catch (error) {
+      console.error("Failed to check username:", error);
+    }
+  }
+
   return (
     <form
-      onSubmit={signUpForm.onSubmit(async (values) => {
-        const apiResponse = await fetch("api/signup", {
-          method: "POST", // Assuming you're sending a POST request
-          headers: {
-            "Content-Type": "application/json", // Set the content type to JSON
-          },
-          body: JSON.stringify(values), // Stringify the values to send as JSON
-        });
-        // ... handle the response
+      onSubmit={signUpForm.onSubmit((values) => {
+        if (usernameExists) {
+          // This line is optional as the form won't submit if there are errors
+          signUpForm.setFieldError("username", "Username is already taken");
+          return;
+        }
+
+        // API call to register the user
+        console.log("Submitting form", values);
       })}
     >
       <SimpleGrid mt={"5vh"} cols={{ base: 1, xs: 2 }}>
@@ -65,7 +100,6 @@ export default function SignUpGrid({ isSigned }: { isSigned: boolean }) {
               Please signup to continue
             </Text>
             <TextInput
-              key="username"
               p="lg"
               variant="unstyled"
               label="Username"
@@ -73,17 +107,17 @@ export default function SignUpGrid({ isSigned }: { isSigned: boolean }) {
               placeholder="jasonbourne"
               {...signUpForm.getInputProps("username")}
             />
+
             <TextInput
               p="lg"
-              key="password"
               variant="unstyled"
               label="Password"
               description="Credential of Account"
               placeholder="Your secret password"
               {...signUpForm.getInputProps("password")}
             />
+
             <TextInput
-              key="reEnterPassword"
               p="lg"
               variant="unstyled"
               label="Confirm Password"
@@ -91,14 +125,8 @@ export default function SignUpGrid({ isSigned }: { isSigned: boolean }) {
               placeholder="Your secret password again"
               {...signUpForm.getInputProps("reEnterPassword")}
             />
-            <Button
-              color="#c8d3eb"
-              variant="filled"
-              type="submit"
-              onClick={() => {
-                console.log("Sign Up button clicked");
-              }}
-            >
+
+            <Button color="#c8d3eb" variant="filled" type="submit">
               Sign Up
             </Button>
           </Stack>

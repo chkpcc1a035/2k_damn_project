@@ -34,18 +34,18 @@ model Product {
 }
 
 model Customer {
-  id         Int      @id @default(autoincrement()) // renamed CustomerID to id
-  name       String   // Use as is
-  email      String?  // Use as is
-  phone      String?  // Use as is
-  address    String?  // Use as is
-  district   String?  // Use as is
-  area       String?  // Use as is
-  cardNumber String?  // renamed CardNumber to cardNumber
-  cardHolder String?  // renamed CardHolder to cardHolder
-  cardDate   String?  // renamed CardDate to cardDate
-  cardCVC    String?  // renamed CardCVC to cardCVC
-  orders     Order[]  // Relation field
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String   @unique
+  phone      String?
+  address    String?
+  district   String?
+  area       String?
+  cardNumber String?
+  cardHolder String?
+  cardDate   String?
+  cardCVC    String?
+  orders     Order[]
 }
 
 model Order {

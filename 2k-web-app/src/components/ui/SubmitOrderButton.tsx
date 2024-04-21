@@ -45,7 +45,17 @@ export function SubmitOrderButton({ data }: { data: InputProps }) {
       size="lg"
       fullWidth
       radius="lg"
-      onClick={() => console.log(final_order)}
+      // type="submit"
+      onClick={async () => {
+        const apiRes = await fetch("/api/createOrder", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(final_order),
+        });
+        console.log("API Response:", await apiRes.json());
+      }}
     >
       Confirm order
     </Button>

@@ -32,7 +32,7 @@ export async function POST(request: Request) {
 
     console.log(newUser);
 
-    return new Response(JSON.stringify(newUser), {
+    return new Response(JSON.stringify({ statusCode: "registerSuccess" }), {
       status: 201,
       headers: {
         "Content-Type": "application/json",

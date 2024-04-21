@@ -79,15 +79,36 @@ export default function SignUpGrid({ isSigned }: { isSigned: boolean }) {
 
   return (
     <form
-      onSubmit={signUpForm.onSubmit((values) => {
+      onSubmit={signUpForm.onSubmit(async (values) => {
         if (usernameExists) {
           // This line is optional as the form won't submit if there are errors
           signUpForm.setFieldError("username", "Username is already taken");
           return;
         }
 
+        try {
+          const apiResponse = await fetch("api/signup", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+          });
+
+          if (!apiResponse.ok) {
+            throw new Error("API response was not ok.");
+          }
+
+          const responseData = await apiResponse.json();
+          console.log("Response data:", responseData);
+          // Handle success scenario
+        } catch (error) {
+          console.error("Error during sign up:", error);
+          open(); // Ensure this is called
+        }
+
         // API call to register the user
-        console.log("Submitting form", values);
+        // console.log("Submitting form", values);
       })}
     >
       <SimpleGrid mt={"5vh"} cols={{ base: 1, xs: 2 }}>

@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === "production") {
   // Ensure that in development only one instance is used across all modules
   if (!global.prisma) {
     global.prisma = new PrismaClient({
-      log: ["query", "info", `warn`, `error`],
+      log: ["query", "info", "warn", "error"],
     });
   }
   prisma = global.prisma;

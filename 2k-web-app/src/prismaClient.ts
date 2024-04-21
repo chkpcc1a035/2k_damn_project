@@ -7,12 +7,15 @@ if (process.env.NODE_ENV === "production") {
   prisma = new PrismaClient();
 } else {
   // Ensure that in development only one instance is used across all modules
-  if (!global.prisma) {
-    global.prisma = new PrismaClient({
+  // eslint-disable-next-line
+  if (!(global as any).prisma) {
+    (global as any).prisma = new PrismaClient({
       log: ["query", "info", "warn", "error"],
     });
   }
-  prisma = global.prisma;
+  prisma = (global as any).prisma;
+  // eslint-disable-next-line
+  // prisma = global.prisma;
 }
 
 export default prisma;

@@ -60,3 +60,56 @@ type CustomerType = {
   customer_spend: number;
   customer_createdAt: string;
 };
+
+export interface Product {
+  id: string;
+  image: string;
+  name: string;
+  description: string;
+  tag: string;
+  features: string; // Serialized JSON string or could be converted to string[]
+  price: number;
+  stock: number;
+  quantity: number;
+  createdAt: string;
+}
+
+export interface OrderItem {
+  id: number;
+  orderId: number;
+  productId: string;
+  quantity: number;
+  productPrice: number;
+  product: Product;
+}
+
+export interface Customer {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  district: string;
+  area: string;
+  cardNumber: string;
+  cardHolder: string;
+  cardDate: string;
+  cardCVC: string;
+}
+
+export interface Order {
+  id: number;
+  customerId: number;
+  orderTotal: number;
+  shippingCost: number;
+  discount: number;
+  subtotal: number;
+  taxes: number;
+  total: number;
+  createdAt: string;
+  orderItems: OrderItem[];
+  customer: Customer;
+}
+
+// If you need to handle an array of such Order objects:
+export type OrdersArray = Order[];

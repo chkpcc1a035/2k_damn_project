@@ -1,5 +1,6 @@
 "use client";
 
+import { OrdersArray } from "@/types";
 import {
   ActionIcon,
   Badge,
@@ -13,7 +14,7 @@ import {
   Text,
 } from "@mantine/core";
 import { IconFile, IconSearch } from "@tabler/icons-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const data = [
   {
@@ -98,34 +99,50 @@ const data = [
 
 export function OrdersDisplay() {
   const [value, setValue] = useState("today");
+  const [orderData, setOrderData] = useState<OrdersArray>([]);
 
-  const orders = data.map((item, index) => (
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("/api/listOrder", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      // console.log(data);
+      setOrderData(data);
+    }
+
+    fetchData(); // Call the async function inside useEffect
+  }, []); // Dependency array to run only once on component mount
+  const orders = orderData.map((item, index) => (
     <Table.Tr key={index}>
       <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.order_id}</Text>
+        <Text fz={{ base: "sm" }}>{item.id}</Text>
       </Table.Td>
       <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.order_detail.name}</Text>
+        <Text fz={{ base: "sm" }}>{item.customer.name}</Text>
         <Text fz={{ base: "xs" }} c={"dimmed"}>
-          {item.order_detail.email}
+          {item.customer.email}
         </Text>
       </Table.Td>
       <Table.Td>
         <Badge color="green" variant="light">
-          {item.order_status}
+          {}
         </Badge>
       </Table.Td>
       <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.order_items.length}</Text>
+        <Text fz={{ base: "sm" }}>{item.orderItems.length}</Text>
       </Table.Td>
       <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.order_date}</Text>
+        <Text fz={{ base: "sm" }}>{item.createdAt}</Text>
       </Table.Td>
       <Table.Td>
         <Text fz={{ base: "sm" }}>
           <NumberFormatter
             prefix="$ "
-            value={item.order_summary.total}
+            value={item.orderTotal}
             thousandSeparator
             decimalScale={2}
             fixedDecimalScale

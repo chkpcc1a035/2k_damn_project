@@ -145,9 +145,7 @@ export function CheckoutDisplay() {
             <Stepper.Step label="First step" description="Order Items" />
             <Stepper.Step label="Second step" description="Address" />
             <Stepper.Step label="Final step" description="Payment" />
-            <Stepper.Completed>
-              <Text>Complete</Text>
-            </Stepper.Completed>
+            <Stepper.Completed>{}</Stepper.Completed>
           </Stepper>
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 6 }}>

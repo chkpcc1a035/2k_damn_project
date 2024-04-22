@@ -127,9 +127,9 @@ export function ProductCard({
                 fixedDecimalScale
               />
             </Text>
-            <Text fz="sm" c="dimmed" fw={500} style={{ lineHeight: 1 }} mt={3}>
+            {/* <Text fz="sm" c="dimmed" fw={500} style={{ lineHeight: 1 }} mt={3}>
               per day
-            </Text>
+            </Text> */}
           </div>
 
           <Popover

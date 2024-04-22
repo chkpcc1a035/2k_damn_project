@@ -1,6 +1,8 @@
+import { clearCart } from "@/store/slices/cartSlice";
 import { RootState } from "@/store/store";
 import { Button } from "@mantine/core";
-import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 
 type InputProps = {
   address: string;
@@ -16,6 +18,9 @@ type InputProps = {
 };
 
 export function SubmitOrderButton({ data }: { data: InputProps }) {
+  const router = useRouter();
+  const dispatch = useDispatch();
+
   const cartItems = useSelector((state: RootState) => state.cart.items);
   let order = 0;
   cartItems.forEach((item) => {
@@ -54,7 +59,10 @@ export function SubmitOrderButton({ data }: { data: InputProps }) {
           },
           body: JSON.stringify(final_order),
         });
+
         console.log("API Response:", await apiRes.json());
+        dispatch(clearCart());
+        router.push("/Shop/Checkout/Success");
       }}
     >
       Confirm order

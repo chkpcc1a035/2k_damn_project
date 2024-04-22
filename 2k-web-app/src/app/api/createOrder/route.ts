@@ -43,7 +43,7 @@ export async function POST(request: Request) {
       taxes: incomingPayload.order_summary.taxes,
       total: incomingPayload.order_summary.total,
       orderItems: {
-        create: incomingPayload.order_items.map((item) => ({
+        create: incomingPayload.order_items.map((item: any) => ({
           productId: item.product_id,
           quantity: item.quantity,
           productPrice: item.product_price,

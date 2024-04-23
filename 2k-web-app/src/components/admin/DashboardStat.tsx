@@ -47,7 +47,7 @@ export async function DashboardStat() {
 
         <Group align="flex-end" gap="xs" mt={"md"}>
           <Text fw={700} fz={{ base: "h2" }}>
-            {item.value}
+            <NumberFormatter value={item.value} decimalScale={2} />
           </Text>
           <Group gap={"xs"}>
             <Text

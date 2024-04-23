@@ -256,7 +256,7 @@ export async function getTopCustomers() {
   const topCustomer = results
     .sort((a, b) => b.total - a.total)
     .slice(0, 5)
-    .map((item, index) => [index + 1, item.name, item.name, item.total]);
+    .map((item, index) => [index + 1, item.name, item.total]);
 
   return topCustomer;
 }

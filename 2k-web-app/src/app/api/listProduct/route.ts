@@ -1,4 +1,4 @@
-// src/app/api/listOrder/route.ts
+// src/app/api/listProduct/route.ts
 import prisma from "../../../prismaClient";
 // import bcrypt from "bcryptjs";
 
@@ -6,18 +6,13 @@ export async function POST(request: Request) {
   try {
     // const incomingPayload = await request.json();
 
-    const orders = await prisma.order.findMany({
+    const products = await prisma.product.findMany({
       include: {
-        orderItems: {
-          include: {
-            product: true,
-          },
-        },
-        customer: true,
+        category: true,
       },
     });
 
-    return new Response(JSON.stringify(orders), {
+    return new Response(JSON.stringify(products), {
       status: 201,
       headers: {
         "Content-Type": "application/json",

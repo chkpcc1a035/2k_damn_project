@@ -6,11 +6,7 @@ export async function POST(request: Request) {
   try {
     // const incomingPayload = await request.json();
 
-    const products = await prisma.product.findMany({
-      include: {
-        category: true,
-      },
-    });
+    const products = await prisma.product.findMany();
 
     return new Response(JSON.stringify(products), {
       status: 201,

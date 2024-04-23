@@ -1,5 +1,7 @@
+//src/components/admin/ProductsDisplay.tsx
 "use client";
 
+import { Product, ProductArray } from "@/types";
 import {
   Button,
   Card,
@@ -20,7 +22,7 @@ import {
   IconPlus,
   IconTrash,
 } from "@tabler/icons-react";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 
 const data = [
   {
@@ -206,47 +208,76 @@ const data = [
 
 export function ProductsDisplay() {
   const [value, setValue] = useState("all");
+  const [productData, setProductData] = useState<ProductArray>([]);
 
-  const products = data.map((item, index) => (
+  function formatFeatures(productFeatureArrayStrified: string) {
+    try {
+      // Parse the features JSON string to an array
+      const featuresArray = JSON.parse(productFeatureArrayStrified);
+
+      // Join the array elements into a single string with commas
+      const formattedFeatures = featuresArray.join(", ");
+
+      // Return the formatted features
+      return formattedFeatures;
+    } catch (error) {
+      console.error("Error formatting features:", error);
+      return productFeatureArrayStrified; // Return original in case of error
+    }
+  }
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("/api/listProduct", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      setProductData(data);
+    }
+
+    fetchData(); // Call the async function inside useEffect
+  }, []); // Dependency array to run only once on component mount
+  const products = productData.map((item, index) => (
     <Table.Tr key={index}>
       <Table.Td>
         <Image
-          src={item.product_image}
+          src={item.image}
           w={50}
           h={50}
           fallbackSrc="https://placehold.co/600x400/grey/black?text=Car+Image"
-          alt={`${item.product_name}`}
+          alt={`${item.name}`}
         />
       </Table.Td>
       <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.product_name}</Text>
+        <Text fz={{ base: "sm" }}>{item.name}</Text>
         <Text fz={{ base: "xs" }} c={"dimmed"}>
-          {item.product_id}
+          {item.id}
         </Text>
       </Table.Td>
       <Table.Td>
         <Text fz={{ base: "sm" }} lineClamp={1}>
-          {item.product_description}
+          {item.description}
         </Text>
       </Table.Td>
       <Table.Td>
-        <Badge
-          color={item.product_stock === 0 ? "red" : "green"}
-          variant="light"
-        >
-          {item.product_stock === 0 ? "out of stock" : "in stock"}
+        <Badge color={item.stock === 0 ? "red" : "green"} variant="light">
+          {item.stock === 0 ? "out of stock" : "in stock"}
         </Badge>
       </Table.Td>
       <Table.Td>
         <Text fz={{ base: "sm" }} lineClamp={1}>
-          {item.product_features.join(", ")}
+          {formatFeatures(item.features)}
         </Text>
       </Table.Td>
       <Table.Td>
         <Text fz={{ base: "sm" }}>
           <NumberFormatter
             prefix="$ "
-            value={item.product_price}
+            value={item.price}
             thousandSeparator
             decimalScale={2}
             fixedDecimalScale
@@ -256,11 +287,11 @@ export function ProductsDisplay() {
 
       <Table.Td>
         <Text fz={{ base: "sm" }}>
-          {item.product_stock}/{item.product_quantity}
+          {item.stock}/{item.quantity}
         </Text>
       </Table.Td>
       <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.product_createdAt}</Text>
+        <Text fz={{ base: "sm" }}>{item.createdAt}</Text>
       </Table.Td>
 
       <Table.Td>

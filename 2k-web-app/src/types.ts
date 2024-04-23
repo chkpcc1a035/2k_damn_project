@@ -1,3 +1,4 @@
+//src/types.ts
 type CartType = {
   product_id: string;
   product_image: string;
@@ -113,3 +114,5 @@ export interface Order {
 
 // If you need to handle an array of such Order objects:
 export type OrdersArray = Order[];
+
+export type ProductArray = Product[];

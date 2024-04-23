@@ -1,6 +1,6 @@
 "use client";
 
-import { CustomerArray } from "@/types";
+import type { CustomerArray } from "../../types";
 import {
   ActionIcon,
   Button,

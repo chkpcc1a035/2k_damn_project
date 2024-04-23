@@ -1,22 +1,29 @@
 -- CreateTable
+CREATE TABLE "User" (
+    "userid" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "username" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CreateTable
 CREATE TABLE "Product" (
     "id" TEXT NOT NULL PRIMARY KEY,
-    "image" TEXT,
+    "image" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "description" TEXT,
-    "tag" TEXT,
-    "features" TEXT,
+    "description" TEXT NOT NULL,
+    "features" TEXT NOT NULL,
     "price" REAL NOT NULL,
-    "stock" INTEGER NOT NULL,
     "quantity" INTEGER NOT NULL,
-    "createdAt" DATETIME NOT NULL
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- CreateTable
 CREATE TABLE "Customer" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "name" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
+    "name" TEXT,
+    "email" TEXT,
     "phone" TEXT,
     "address" TEXT,
     "district" TEXT,
@@ -24,7 +31,9 @@ CREATE TABLE "Customer" (
     "cardNumber" TEXT,
     "cardHolder" TEXT,
     "cardDate" TEXT,
-    "cardCVC" TEXT
+    "cardCVC" TEXT,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT "Customer_username_fkey" FOREIGN KEY ("username") REFERENCES "User" ("username") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -44,13 +53,13 @@ CREATE TABLE "Order" (
 -- CreateTable
 CREATE TABLE "OrderItem" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "orderId" INTEGER,
-    "productId" TEXT,
+    "orderId" INTEGER NOT NULL,
+    "productId" TEXT NOT NULL,
     "quantity" INTEGER NOT NULL,
     "productPrice" REAL NOT NULL,
-    CONSTRAINT "OrderItem_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES "Order" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT "OrderItem_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+    CONSTRAINT "OrderItem_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES "Order" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "OrderItem_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Customer_email_key" ON "Customer"("email");
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");

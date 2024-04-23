@@ -42,7 +42,7 @@ model Customer {
   cardDate   String?
   cardCVC    String?
   orders     Order[]
-  createdAt  DateTime  @default(now())  // just added on 23/04
+  createdAt  DateTime  @default(now())  
 }
 
 

@@ -200,45 +200,44 @@ export async function getAverageOrderTotal() {
 }
 
 export async function getTopProducts() {
-  const topProducts = await prisma.orderItem.groupBy({
+  const products = await prisma.orderItem.groupBy({
     by: ["productId"],
     _sum: {
-      productPrice: true,
+      quantity: true,
     },
     _count: {
       productId: true,
     },
-    orderBy: {
-      _sum: {
-        productPrice: "desc",
-      },
-    },
-    take: 5,
   });
   const productDetails = await prisma.product.findMany({
     where: {
       id: {
-        in: topProducts.map((p) => p.productId),
+        in: products.map((p) => p.productId),
       },
     },
     select: {
       id: true,
       name: true,
+      price: true,
     },
   });
-  const results = topProducts.map((product, index) => {
+  const results = products.map((product) => {
     const productDetail = productDetails.find(
       (detail) => detail.id === product.productId
     );
-    return [
-      index + 1,
-      productDetail ? productDetail.name : "Unknown",
-      product._count.productId,
-      product._sum.productPrice,
-    ];
+    return {
+      name: productDetail ? productDetail.name : "Unknown",
+      count: product._sum.quantity ? product._sum.quantity : 0,
+      total:
+        (product._sum.quantity ? product._sum.quantity : 0) *
+        (productDetail?.price ? productDetail.price : 0),
+    };
   });
-
-  return results;
+  const topProducts = results
+    .sort((a, b) => b.total - a.total)
+    .slice(0, 5)
+    .map((item, index) => [index + 1, item.name, item.count, item.total]);
+  return topProducts;
 }
 
 export async function getTopCustomers() {
@@ -250,15 +249,16 @@ export async function getTopCustomers() {
     },
   });
 
-  const customerTotals = customers
-    .map((customer, index) => [
-      index + 1,
-      customer.name,
-      customer.orders.reduce((sum, order) => sum + order.total, 0),
-    ])
-    .slice(0, 5);
+  const results = customers.map((customer, index) => ({
+    name: customer.name,
+    total: customer.orders.reduce((sum, order) => sum + order.total, 0),
+  }));
+  const topCustomer = results
+    .sort((a, b) => b.total - a.total)
+    .slice(0, 5)
+    .map((item, index) => [index + 1, item.name, item.name, item.total]);
 
-  return customerTotals;
+  return topCustomer;
 }
 
 export async function getOrderStatistics() {
@@ -270,7 +270,6 @@ export async function getOrderStatistics() {
   const orderTotals = orders.map((order) => order.orderTotal);
   const mean = ss.mean(orderTotals);
   const median = ss.median(orderTotals);
-  const stdDeviation = ss.standardDeviation(orderTotals);
   const firstQuartile = ss.quantile(orderTotals, 0.25);
   const thirdQuartile = ss.quantile(orderTotals, 0.75);
   const interQuartileRange = ss.interquartileRange(orderTotals);
@@ -278,7 +277,6 @@ export async function getOrderStatistics() {
   return [
     ["Mean", mean],
     ["Median", median],
-    ["Standard Deviation", stdDeviation],
     ["First Quartile", firstQuartile],
     ["Third Quartile", thirdQuartile],
     ["Interquartile Range", interQuartileRange],

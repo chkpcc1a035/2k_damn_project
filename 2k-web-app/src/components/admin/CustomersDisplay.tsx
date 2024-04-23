@@ -58,23 +58,12 @@ export function CustomersDisplay() {
       <Table.Td>
         <Text fz={{ base: "sm" }}>{item.createdAt}</Text>
       </Table.Td>
-
-      <Table.Td>
-        <Group gap={0} wrap="nowrap">
-          <ActionIcon variant="subtle" color="gray">
-            <IconSearch />
-          </ActionIcon>
-          <ActionIcon variant="subtle" color="red">
-            <IconTrash />
-          </ActionIcon>
-        </Group>
-      </Table.Td>
     </Table.Tr>
   ));
 
   return (
     <>
-      <Stack maw={1000} w={"100%"}>
+      <Stack maw={800} w={"100%"}>
         <Text fw={700} fz={{ base: "h3", xs: "h1" }}>
           Customers
         </Text>
@@ -117,7 +106,6 @@ export function CustomersDisplay() {
                       Create At
                     </Text>
                   </Table.Th>
-                  <Table.Th />
                 </Table.Tr>
               </Table.Thead>
               <Table.Tbody>{customers}</Table.Tbody>

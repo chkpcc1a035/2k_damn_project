@@ -96,6 +96,7 @@ export interface Customer {
   cardHolder: string;
   cardDate: string;
   cardCVC: string;
+  createdAt: string;
 }
 
 export interface Order {
@@ -116,3 +117,5 @@ export interface Order {
 export type OrdersArray = Order[];
 
 export type ProductArray = Product[];
+
+export type CustomerArray = Customer[];

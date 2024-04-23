@@ -1,5 +1,6 @@
 "use client";
 
+import { CustomerArray } from "@/types";
 import {
   ActionIcon,
   Button,
@@ -11,6 +12,7 @@ import {
   Text,
 } from "@mantine/core";
 import { IconDots, IconFile, IconSearch, IconTrash } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
 
 const data = [
   {
@@ -86,24 +88,44 @@ const data = [
 ];
 
 export function CustomersDisplay() {
-  const customers = data.map((item, index) => (
+  const [customerData, setCustomerData] = useState<CustomerArray>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("/api/listCustomer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      setCustomerData(data);
+    }
+
+    fetchData(); // Call the async function inside useEffect
+  }, []); // Dependency array to run only once on component mount
+  const customers = customerData.map((item, index) => (
     <Table.Tr key={index}>
       <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.customer_username}</Text>
+        <Text fz={{ base: "sm" }}>{item.name}</Text>
         <Text fz={{ base: "xs" }} c={"dimmed"}>
-          {item.customer_id}
+          {item.id}
         </Text>
       </Table.Td>
       <Table.Td>
         <Text fz={{ base: "sm" }} lineClamp={1}>
-          {item.customer_orders}
+          999
+          {/*placeholder for another query of customer id in order table count */}
         </Text>
       </Table.Td>
       <Table.Td>
         <Text fz={{ base: "sm" }}>
           <NumberFormatter
             prefix="$ "
-            value={item.customer_spend}
+            value={
+              99999 //placeholder for another count total in customer id and order table
+            }
             thousandSeparator
             decimalScale={2}
             fixedDecimalScale
@@ -111,7 +133,7 @@ export function CustomersDisplay() {
         </Text>
       </Table.Td>
       <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.customer_createdAt}</Text>
+        <Text fz={{ base: "sm" }}>{item.createdAt}</Text>
       </Table.Td>
 
       <Table.Td>

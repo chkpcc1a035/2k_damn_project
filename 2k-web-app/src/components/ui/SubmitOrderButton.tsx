@@ -17,7 +17,13 @@ type InputProps = {
   phone: string;
 };
 
-export function SubmitOrderButton({ data }: { data: InputProps }) {
+export function SubmitOrderButton({
+  data,
+  username,
+}: {
+  data: InputProps;
+  username: string;
+}) {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -33,6 +39,7 @@ export function SubmitOrderButton({ data }: { data: InputProps }) {
   const total = subtotal + taxes;
 
   const final_order = {
+    username: username,
     order_items: cartItems,
     order_summary: {
       order,
@@ -50,7 +57,6 @@ export function SubmitOrderButton({ data }: { data: InputProps }) {
       size="lg"
       fullWidth
       radius="lg"
-      // type="submit"
       onClick={async () => {
         const apiRes = await fetch("/api/createOrder", {
           method: "POST",

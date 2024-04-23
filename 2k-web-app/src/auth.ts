@@ -45,7 +45,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             username: credentials.username,
           },
         });
-        console.log("Fetched user:", user); // This will show you the user object fetched from the database
+        console.log("Fetched user:", user);
 
         if (!user) {
           console.log("No user found with username:", credentials.username);
@@ -58,7 +58,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           );
         } else {
           console.log("User authenticated successfully:", credentials.username);
-          return { name: user.username, email: user.username }; // or any other user fields you need
+          return { name: user.username };
         }
 
         return null;

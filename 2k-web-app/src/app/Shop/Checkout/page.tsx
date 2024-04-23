@@ -15,9 +15,10 @@ import { redirect } from "next/navigation";
 
 export default async function Page() {
   const session = await auth();
-  if (!session?.user) {
+  if (!session?.user?.name) {
     redirect("/Shop");
   }
+
   return (
     <>
       <Center>
@@ -28,7 +29,7 @@ export default async function Page() {
           <Breadcrumbs>
             <Anchor href="/Shop">Shop</Anchor>Checkout
           </Breadcrumbs>
-          <CheckoutDisplay />
+          <CheckoutDisplay username={session.user.name} />
           <AffixButton />
         </Stack>
       </Center>

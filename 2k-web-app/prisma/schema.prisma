@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,29 +8,31 @@ datasource db {
 }
 
 model User {
+  userid    Int     @id @default(autoincrement())
   username String @unique
   password String
-  userid    Int     @id @default(autoincrement())
+  createdAt DateTime @default(now()) 
+  customers Customer[] 
 }
 
 model Product {
-  id               String    @id @default(uuid()) // changed ProductID to id and use UUIDs
-  image            String?   // renamed ProductImage to image
-  name             String    // renamed ProductName to name
-  description      String?   // renamed ProductDescription to description
-  tag              String?   // renamed ProductTag to tag
-  features         String?   // renamed ProductFeatures to features
-  price            Float     // renamed ProductPrice to price
-  stock            Int       // renamed ProductStock to stock
-  quantity         Int       // renamed ProductQuantity to quantity
-  createdAt        DateTime  // renamed CreatedAt to createdAt, it will auto generate this field
-  OrderItem        OrderItem[]  // Relation field
+  id               String    @id @default(uuid()) 
+  image            String 
+  name             String    
+  description      String    
+  features         String 
+  price            Float      
+  quantity         Int       
+  createdAt        DateTime  @default(now())
+  OrderItem        OrderItem[]  
 }
 
 model Customer {
   id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [username], references: [username])
+  username   String   @unique
   name       String
-  email      String   @unique
+  email      String?
   phone      String?
   address    String?
   district   String?
@@ -49,27 +45,27 @@ model Customer {
   createdAt  DateTime  @default(now())  // just added on 23/04
 }
 
+
 model Order {
-  id          Int       @id @default(autoincrement()) // renamed OrderID to id
+  id          Int       @id @default(autoincrement())
   customer    Customer? @relation(fields: [customerId], references: [id])
-  customerId  Int?      // renamed CustomerID to customerId
-  orderTotal  Float     // renamed OrderTotal to orderTotal
-  shippingCost Float    // renamed ShippingCost to shippingCost
-  discount    Float     // renamed Discount to discount
-  subtotal    Float     // renamed Subtotal to subtotal
-  taxes       Float     // renamed Taxes to taxes
-  total       Float     // renamed Total to total
-  createdAt   DateTime  @default(now()) // renamed CreatedAt to createdAt
-  orderItems  OrderItem[] // Relation field
+  customerId  Int?      
+  orderTotal  Float     
+  shippingCost Float    
+  discount    Float    
+  subtotal    Float    
+  taxes       Float    
+  total       Float    
+  createdAt   DateTime  @default(now()) 
+  orderItems  OrderItem[] 
 }
 
 model OrderItem {
-  id           Int      @id @default(autoincrement()) // renamed ItemID to id
-  order        Order?   @relation(fields: [orderId], references: [id])
-  orderId      Int?     // renamed OrderID to orderId
-  product      Product? @relation(fields: [productId], references: [id])
-  productId    String?  // Corrected type to match Product's ID
-  quantity     Int      // Use as is
-  productPrice Float    // renamed ProductPrice to productPrice
+  id           Int      @id @default(autoincrement()) 
+  order        Order   @relation(fields: [orderId], references: [id])
+  orderId      Int     
+  product      Product @relation(fields: [productId], references: [id])
+  productId    String  
+  quantity     Int      
+  productPrice Float    
 }
-

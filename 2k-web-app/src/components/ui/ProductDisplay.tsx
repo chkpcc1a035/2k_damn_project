@@ -5,6 +5,9 @@ import { ProductCard } from "./ProductCard";
 
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
+import { useEffect, useState } from "react";
+import { ProductArray } from "@/types";
+import { features } from "process";
 
 const data = [
   {
@@ -189,7 +192,25 @@ const data = [
 ];
 
 export function ProductDisplay({ signin }: { signin: boolean }) {
-  const products = data.map((item, index) => (
+  const [productData, setProductData] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("/api/listProduct", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+
+      setProductData(data);
+    }
+
+    fetchData();
+  }, []);
+
+  const products = productData.map((item, index) => (
     <ProductCard data={item} key={index} disabled={signin} />
   ));
 

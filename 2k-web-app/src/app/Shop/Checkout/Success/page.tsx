@@ -1,4 +1,3 @@
-//src/app/Shop/Checkout/Success/page.tsx
 import {
   Anchor,
   Button,
@@ -24,8 +23,8 @@ export default function Page() {
                 Order Success!
               </Text>
               <Text ta="center" c="dimmed">
-                We&apos;ll handle the rest. For any inquiries, our customer
-                support team is here to assist you.
+                We'll handle the rest. For any inquiries, our customer support
+                team is here to assist you.
               </Text>
               <Anchor href="/Shop" underline="never">
                 <Button>Back to Home</Button>

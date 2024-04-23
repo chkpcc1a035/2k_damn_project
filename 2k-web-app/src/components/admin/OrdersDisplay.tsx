@@ -16,89 +16,8 @@ import {
 import { IconFile, IconSearch } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 
-const data = [
-  {
-    order_id: "ORD123456",
-    order_username: "jason",
-    order_status: "success",
-    order_date: "2024-04-20T08:30:00Z",
-    order_items: [
-      {
-        product_id: "2001",
-        product_image: "https://i.imgur.com/ZL52Q2D.png",
-        product_name: "Audi A4",
-        product_price: 25000,
-        quantity: 1,
-      },
-      {
-        product_id: "2003",
-        product_image:
-          "https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg",
-        product_name: "Mercedes-Benz C-Class",
-        product_price: 30000,
-        quantity: 1,
-      },
-    ],
-    order_summary: {
-      order: 55000,
-      shipping: 30,
-      discount: 0,
-      subtotal: 55030,
-      taxes: 1650.8999999999999,
-      total: 56680.9,
-    },
-    order_detail: {
-      name: "John Smith",
-      email: "john@example.com",
-      phone: "12345678",
-      address: "test",
-      district: "Sha Tin",
-      area: "Hong Kong",
-      cardNumber: "1234-1234-1234-1234",
-      cardDate: "11/28",
-      cardCVC: "123",
-      cardHolder: "test",
-    },
-  },
-  {
-    order_id: "ORD789012",
-    order_username: "alice",
-    order_status: "success",
-    order_date: "2024-04-21T10:45:00Z",
-    order_items: [
-      {
-        product_id: "2005",
-        product_image: "https://i.imgur.com/ZL52Q2D.png",
-        product_name: "Toyota Camry",
-        product_price: 28000,
-        quantity: 2,
-      },
-    ],
-    order_summary: {
-      order: 56000,
-      shipping: 20,
-      discount: 1000,
-      subtotal: 55020,
-      taxes: 1650.6,
-      total: 56670.6,
-    },
-    order_detail: {
-      name: "Alice Johnson",
-      email: "alice@example.com",
-      phone: "98765432",
-      address: "123 Main St",
-      district: "Central",
-      area: "Hong Kong",
-      cardNumber: "5678-5678-5678-5678",
-      cardDate: "09/25",
-      cardCVC: "456",
-      cardHolder: "Alice Johnson",
-    },
-  },
-];
-
 export function OrdersDisplay() {
-  const [value, setValue] = useState("today");
+  const [value, setValue] = useState("all");
   const [orderData, setOrderData] = useState<OrdersArray>([]);
 
   useEffect(() => {
@@ -110,52 +29,64 @@ export function OrdersDisplay() {
         },
       });
       const data = await response.json();
-      console.log(data);
       setOrderData(data);
     }
 
-    fetchData(); // Call the async function inside useEffect
-  }, []); // Dependency array to run only once on component mount
-  const orders = orderData.map((item, index) => (
-    <Table.Tr key={index}>
-      <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.id}</Text>
-      </Table.Td>
-      <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.customer.name}</Text>
-        <Text fz={{ base: "xs" }} c={"dimmed"}>
-          {item.customer.email}
-        </Text>
-      </Table.Td>
-      <Table.Td>
-        <Badge color="green" variant="light">
-          {"success"}
-        </Badge>
-      </Table.Td>
-      <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.orderItems.length}</Text>
-      </Table.Td>
-      <Table.Td>
-        <Text fz={{ base: "sm" }}>{item.createdAt}</Text>
-      </Table.Td>
-      <Table.Td>
-        <Text fz={{ base: "sm" }}>
-          <NumberFormatter
-            prefix="$ "
-            value={item.total}
-            thousandSeparator
-            decimalScale={2}
-            fixedDecimalScale
-          />
-        </Text>
-      </Table.Td>
-      <Table.Td>
-        <ActionIcon variant="subtle" color="gray">
-          <IconSearch />
-        </ActionIcon>
-      </Table.Td>
-    </Table.Tr>
-  ));
+    fetchData();
+  }, []);
+
+  const orders = orderData
+    .filter((item) => {
+      if (value === "all") {
+        return item;
+      }
+      const currentDate = new Date();
+      const targetDate = new Date(item.createdAt);
+      const differenceInMs = currentDate.getTime() - targetDate.getTime();
+      const differenceInDays = Math.abs(differenceInMs / (1000 * 60 * 60 * 24));
+      return differenceInDays <= Number(value);
+    })
+    .map((item, index) => (
+      <Table.Tr key={index}>
+        <Table.Td>
+          <Text fz={{ base: "sm" }}>{item.id}</Text>
+        </Table.Td>
+        <Table.Td>
+          <Text fz={{ base: "sm" }}>{item.customer.name}</Text>
+          <Text fz={{ base: "xs" }} c={"dimmed"}>
+            {item.customer.email}
+          </Text>
+        </Table.Td>
+        <Table.Td>
+          <Badge color="green" variant="light">
+            {"success"}
+          </Badge>
+        </Table.Td>
+        <Table.Td>
+          <Text fz={{ base: "sm" }}>{item.orderItems.length}</Text>
+        </Table.Td>
+        <Table.Td>
+          {/* <Text fz={{ base: "sm" }}>{item.createdAt}</Text> */}
+          <Text fz={{ base: "sm" }}>{item.createdAt}</Text>
+        </Table.Td>
+        <Table.Td>
+          <Text fz={{ base: "sm" }}>
+            <NumberFormatter
+              prefix="$ "
+              value={item.total}
+              thousandSeparator
+              decimalScale={2}
+              fixedDecimalScale
+            />
+          </Text>
+        </Table.Td>
+        <Table.Td>
+          <ActionIcon variant="subtle" color="gray">
+            <IconSearch />
+          </ActionIcon>
+        </Table.Td>
+      </Table.Tr>
+    ));
 
   return (
     <>
@@ -168,10 +99,10 @@ export function OrdersDisplay() {
             value={value}
             onChange={setValue}
             data={[
-              { label: "Today", value: "today" },
-              { label: "Week", value: "week" },
-              { label: "Month", value: "month" },
-              { label: "Year", value: "year" },
+              { label: "All", value: "all" },
+              { label: "Today", value: "1" },
+              { label: "Week", value: "7" },
+              { label: "Month", value: "30" },
             ]}
           />
           <Button leftSection={<IconFile />} variant="default">

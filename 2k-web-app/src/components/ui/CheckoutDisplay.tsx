@@ -30,7 +30,7 @@ import { useWindowScroll } from "@mantine/hooks";
 import { CheckoutDetailCard } from "./CheckoutDetailCard";
 import { SubmitOrderButton } from "./SubmitOrderButton";
 
-export function CheckoutDisplay() {
+export function CheckoutDisplay({ username }: { username: string }) {
   const [scroll, scrollTo] = useWindowScroll();
   const [active, setActive] = useState(0);
 
@@ -316,7 +316,10 @@ export function CheckoutDisplay() {
                   Next step
                 </Button>
               ) : (
-                <SubmitOrderButton data={form.getValues()} />
+                <SubmitOrderButton
+                  data={form.getValues()}
+                  username={username}
+                />
               )}
             </Stack>
           </Stack>

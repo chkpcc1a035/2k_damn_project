@@ -20,16 +20,16 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/store/slices/cartSlice";
 
 type ProductType = {
-  product_id: string;
-  product_image: string;
-  product_name: string;
-  product_description: string;
-  product_tag: string | null;
-  product_features: string[];
-  product_price: number;
-  product_stock: number;
-  product_quantity: number;
-  product_createdAt: string;
+  id: string;
+  image: string;
+  name: string;
+  description: string;
+  tag: string | null;
+  features: string;
+  price: number;
+  stock: number;
+  quantity: number;
+  createdAt: string;
 };
 
 type CartType = {
@@ -50,38 +50,51 @@ export function ProductCard({
   const dispatch = useDispatch();
   const [opened, setOpened] = useState(false);
 
+  function featuresArray(productFeatureArrayStrified: string) {
+    try {
+      const featuresArray = JSON.parse(productFeatureArrayStrified);
+
+      return featuresArray;
+    } catch (error) {
+      console.error("Error formatting features:", error);
+      return [];
+    }
+  }
+
   async function addCart() {
     if (disabled) {
       setOpened(true);
       return;
     }
     const value: CartType = {
-      product_id: data.product_id,
-      product_image: data.product_image,
-      product_name: data.product_name,
-      product_price: data.product_price,
+      product_id: data.id,
+      product_image: data.image,
+      product_name: data.name,
+      product_price: data.price,
       quantity: 1,
     };
     dispatch(addToCart(value));
     notifications.show({
       title: "Add to Cart",
-      message: `${data.product_name} has been add to your cart!`,
+      message: `${data.name} has been add to your cart!`,
     });
   }
 
-  const features = data.product_features.map((item, index) => (
-    <Badge variant="light" key={index}>
-      {item}
-    </Badge>
-  ));
+  const features = featuresArray(data.features).map(
+    (item: any, index: number) => (
+      <Badge variant="light" key={index}>
+        {item}
+      </Badge>
+    )
+  );
 
   return (
     <Card withBorder radius="md" shadow="md">
       <Card.Section>
         <Center>
           <Image
-            src={data.product_image}
-            alt={`${data.product_name}`}
+            src={data.image}
+            alt={`${data.name}`}
             h={{ base: 260, lg: 300 }}
             w="auto"
             fit="contain"
@@ -95,14 +108,12 @@ export function ProductCard({
 
         <Group justify="space-between">
           <div>
-            <Text fw={700}>{data.product_name}</Text>
+            <Text fw={700}>{data.name}</Text>
             <Text fz="sm" c="dimmed">
-              {data.product_description}
+              {data.description}
             </Text>
           </div>
-          {data.product_tag && (
-            <Badge variant="outline">{data.product_tag}</Badge>
-          )}
+          {data.tag && <Badge variant="outline">{data.tag}</Badge>}
         </Group>
 
         <Divider />
@@ -121,7 +132,7 @@ export function ProductCard({
             <Text fz="xl" fw={700} style={{ lineHeight: 1 }}>
               <NumberFormatter
                 prefix="$ "
-                value={data.product_price}
+                value={data.price}
                 thousandSeparator
                 decimalScale={2}
                 fixedDecimalScale
@@ -144,9 +155,9 @@ export function ProductCard({
                 radius="xl"
                 style={{ flex: 1 }}
                 onClick={addCart}
-                disabled={data.product_stock === 0}
+                disabled={data.stock === 0}
               >
-                {data.product_stock === 0 ? "Sold Out" : "Add to Cart"}
+                {data.stock === 0 ? "Sold Out" : "Add to Cart"}
               </Button>
             </Popover.Target>
 

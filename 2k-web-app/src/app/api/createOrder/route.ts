@@ -6,8 +6,9 @@ export async function POST(request: Request) {
 
   // Attempt to upsert the customer based on the unique email field
   const customer = await prisma.customer.upsert({
-    where: { email: incomingPayload.order_detail.email }, // Ensuring 'email' is set as unique in the schema
+    where: { username: incomingPayload.username },
     create: {
+      username: incomingPayload.username,
       name: incomingPayload.order_detail.name,
       email: incomingPayload.order_detail.email,
       phone: incomingPayload.order_detail.phone,
@@ -21,6 +22,7 @@ export async function POST(request: Request) {
     },
     update: {
       name: incomingPayload.order_detail.name,
+      email: incomingPayload.order_detail.email,
       phone: incomingPayload.order_detail.phone,
       address: incomingPayload.order_detail.address,
       district: incomingPayload.order_detail.district,
@@ -32,7 +34,6 @@ export async function POST(request: Request) {
     },
   });
 
-  // Create the order with associated order items
   const createOrder = await prisma.order.create({
     data: {
       customerId: customer.id,

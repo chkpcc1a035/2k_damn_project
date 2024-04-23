@@ -7,6 +7,7 @@ import {
   IconArrowUpRight,
   IconArrowDownRight,
 } from "@tabler/icons-react";
+import { getCustomerCounts, getTotalRevenue, getUnitsSold } from "./action";
 
 const icons = {
   user: IconUserPlus,
@@ -15,14 +16,16 @@ const icons = {
   coin: IconCoin,
 };
 
-const data = [
-  { title: "Total Revenue", icon: "receipt", value: "13,456", diff: 34 },
-  { title: "Units Sold", icon: "discount", value: "745", diff: 18 },
-  { title: "Average Price", icon: "coin", value: "4,145", diff: -13 },
-  { title: "New customers", icon: "user", value: "188", diff: -30 },
-] as const;
-
-export function DashboardStat() {
+export async function DashboardStat() {
+  const customerData = await getCustomerCounts();
+  const revenueData = await getTotalRevenue();
+  const soldData = await getUnitsSold();
+  const data = [
+    { title: "Total Revenue", icon: "receipt", ...revenueData },
+    { title: "Units Sold", icon: "discount", ...soldData },
+    { title: "New customers", icon: "user", ...customerData },
+    // { title: "Average Price", icon: "coin", value: "4,145", diff: -13 },
+  ] as const;
   const stats = data.map((item, index) => {
     const Icon = icons[item.icon];
     const DiffIcon = item.diff > 0 ? IconArrowUpRight : IconArrowDownRight;

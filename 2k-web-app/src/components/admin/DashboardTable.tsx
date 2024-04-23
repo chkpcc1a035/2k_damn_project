@@ -81,7 +81,7 @@ export function DashboardTable() {
             {item.Description}
           </Text>
         </div>
-        <Button variant="outline">View More</Button>
+        {/* <Button variant="outline">View More</Button> */}
       </Group>
       <Table.ScrollContainer minWidth={400}>
         <Table

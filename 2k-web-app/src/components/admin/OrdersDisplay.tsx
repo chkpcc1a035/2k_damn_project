@@ -129,7 +129,7 @@ export function OrdersDisplay() {
       </Table.Td>
       <Table.Td>
         <Badge color="green" variant="light">
-          {}
+          {"success"}
         </Badge>
       </Table.Td>
       <Table.Td>
@@ -142,7 +142,7 @@ export function OrdersDisplay() {
         <Text fz={{ base: "sm" }}>
           <NumberFormatter
             prefix="$ "
-            value={item.orderTotal}
+            value={item.total}
             thousandSeparator
             decimalScale={2}
             fixedDecimalScale

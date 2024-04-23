@@ -18,27 +18,7 @@ import { useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/store/slices/cartSlice";
-
-type ProductType = {
-  id: string;
-  image: string;
-  name: string;
-  description: string;
-  tag: string | null;
-  features: string;
-  price: number;
-  stock: number;
-  quantity: number;
-  createdAt: string;
-};
-
-type CartType = {
-  product_id: string;
-  product_image: string;
-  product_name: string;
-  product_price: number;
-  quantity: number;
-};
+import { CartType, ProductType } from "@/types";
 
 export function ProductCard({
   data,
@@ -49,17 +29,6 @@ export function ProductCard({
 }) {
   const dispatch = useDispatch();
   const [opened, setOpened] = useState(false);
-
-  function featuresArray(productFeatureArrayStrified: string) {
-    try {
-      const featuresArray = JSON.parse(productFeatureArrayStrified);
-
-      return featuresArray;
-    } catch (error) {
-      console.error("Error formatting features:", error);
-      return [];
-    }
-  }
 
   async function addCart() {
     if (disabled) {
@@ -80,13 +49,11 @@ export function ProductCard({
     });
   }
 
-  const features = featuresArray(data.features).map(
-    (item: any, index: number) => (
-      <Badge variant="light" key={index}>
-        {item}
-      </Badge>
-    )
-  );
+  const features = data.features.split(",").map((item: any, index: number) => (
+    <Badge variant="light" key={index}>
+      {item}
+    </Badge>
+  ));
 
   return (
     <Card withBorder radius="md" shadow="md">

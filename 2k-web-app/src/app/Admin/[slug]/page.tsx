@@ -2,11 +2,9 @@ import { CustomersDisplay } from "@/components/admin/CustomersDisplay";
 import { DashboardDisplay } from "@/components/admin/DashboardDisplay";
 import { OrdersDisplay } from "@/components/admin/OrdersDisplay";
 import { ProductsDisplay } from "@/components/admin/ProductsDisplay";
-import { main } from "@/script";
 import { Stack, Text } from "@mantine/core";
 
 export default function Page({ params }: { params: { slug: string } }) {
-  // main();
   return (
     <>
       {params.slug === "Home" && (

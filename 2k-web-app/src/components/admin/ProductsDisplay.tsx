@@ -1,6 +1,6 @@
 "use client";
 
-import { Product, ProductArray } from "@/types";
+import { ProductArray } from "@/types";
 import {
   Button,
   Card,
@@ -14,14 +14,9 @@ import {
   NumberFormatter,
   ActionIcon,
 } from "@mantine/core";
-import {
-  IconCirclePlus,
-  IconEdit,
-  IconFile,
-  IconPlus,
-  IconTrash,
-} from "@tabler/icons-react";
+
 import { useEffect, useState } from "react";
+import { ExportButton } from "./ExportButton";
 
 export function ProductsDisplay() {
   const [value, setValue] = useState("all");
@@ -138,11 +133,8 @@ export function ProductsDisplay() {
               { label: "Out of Stock", value: "out" },
             ]}
           />
-          <Group>
-            <Button leftSection={<IconFile />} variant="default">
-              Export
-            </Button>
-          </Group>
+
+          <ExportButton data={productData} />
         </Group>
         <Card withBorder radius="md" p="md">
           <div>

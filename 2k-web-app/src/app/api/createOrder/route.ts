@@ -1,26 +1,10 @@
-// src/app/api/createOrder/route.ts
-import prisma from "../../../prismaClient";
-
+import prisma from "@/prismaClient";
 export async function POST(request: Request) {
   const incomingPayload = await request.json();
 
-  // Attempt to upsert the customer based on the unique email field
-  const customer = await prisma.customer.upsert({
-    where: { username: incomingPayload.username },
-    create: {
+  const customer = await prisma.customer.create({
+    data: {
       username: incomingPayload.username,
-      name: incomingPayload.order_detail.name,
-      email: incomingPayload.order_detail.email,
-      phone: incomingPayload.order_detail.phone,
-      address: incomingPayload.order_detail.address,
-      district: incomingPayload.order_detail.district,
-      area: incomingPayload.order_detail.area,
-      cardNumber: incomingPayload.order_detail.cardNumber,
-      cardHolder: incomingPayload.order_detail.cardHolder,
-      cardDate: incomingPayload.order_detail.cardDate,
-      cardCVC: incomingPayload.order_detail.cardCVC,
-    },
-    update: {
       name: incomingPayload.order_detail.name,
       email: incomingPayload.order_detail.email,
       phone: incomingPayload.order_detail.phone,

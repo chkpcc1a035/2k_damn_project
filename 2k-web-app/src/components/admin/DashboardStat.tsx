@@ -1,4 +1,4 @@
-import { Group, Card, SimpleGrid, Text, Table, Stack } from "@mantine/core";
+import { Group, Card, SimpleGrid, Text, NumberFormatter } from "@mantine/core";
 import {
   IconUserPlus,
   IconDiscount2,
@@ -7,7 +7,12 @@ import {
   IconArrowUpRight,
   IconArrowDownRight,
 } from "@tabler/icons-react";
-import { getCustomerCounts, getTotalRevenue, getUnitsSold } from "./action";
+import {
+  getAverageOrderTotal,
+  getCustomerCounts,
+  getTotalRevenue,
+  getUnitsSold,
+} from "./action";
 
 const icons = {
   user: IconUserPlus,
@@ -20,11 +25,13 @@ export async function DashboardStat() {
   const customerData = await getCustomerCounts();
   const revenueData = await getTotalRevenue();
   const soldData = await getUnitsSold();
+  const priceData = await getAverageOrderTotal();
+
   const data = [
     { title: "Total Revenue", icon: "receipt", ...revenueData },
     { title: "Units Sold", icon: "discount", ...soldData },
     { title: "New customers", icon: "user", ...customerData },
-    // { title: "Average Price", icon: "coin", value: "4,145", diff: -13 },
+    { title: "Average price per order", icon: "coin", ...priceData },
   ] as const;
   const stats = data.map((item, index) => {
     const Icon = icons[item.icon];
@@ -43,11 +50,15 @@ export async function DashboardStat() {
             {item.value}
           </Text>
           <Group gap={"xs"}>
-            <Text c={item.diff > 0 ? "green" : "red"} fz="sm" fw={500}>
-              {item.diff}%
+            <Text
+              c={item.diff > 0 ? "green" : item.diff === 0 ? "grey" : "red"}
+              fz="sm"
+              fw={500}
+            >
+              <NumberFormatter value={item.diff} decimalScale={2} />%
             </Text>
             <DiffIcon
-              color={item.diff > 0 ? "green" : "red"}
+              color={item.diff > 0 ? "green" : item.diff === 0 ? "grey" : "red"}
               size="1rem"
               stroke={1.5}
             />

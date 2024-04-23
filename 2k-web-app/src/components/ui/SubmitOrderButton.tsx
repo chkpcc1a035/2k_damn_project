@@ -32,7 +32,7 @@ export function SubmitOrderButton({
   cartItems.forEach((item) => {
     order += item.product_price * item.quantity;
   });
-  const shipping = 30;
+  const shipping = 300;
   const discount = 0;
   const subtotal = order + shipping + discount;
   const taxes = subtotal * 0.03;

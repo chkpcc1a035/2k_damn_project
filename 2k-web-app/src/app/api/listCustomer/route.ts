@@ -1,14 +1,28 @@
-// src/app/api/listCustomer/route.ts
-import prisma from "../../../prismaClient";
-// import bcrypt from "bcryptjs";
+import prisma from "@/prismaClient";
 
 export async function POST(request: Request) {
   try {
-    // const incomingPayload = await request.json();
+    const customers = await prisma.customer.findMany({
+      select: {
+        id: true,
+        username: true,
+        name: true,
+        createdAt: true,
+        orders: {
+          select: {
+            total: true,
+          },
+        },
+      },
+    });
 
-    const customers = await prisma.customer.findMany();
+    const results = customers.map((customer) => ({
+      ...customer,
+      orders: customer.orders.length,
+      spend: customer.orders.reduce((acc, order) => acc + order.total, 0),
+    }));
 
-    return new Response(JSON.stringify(customers), {
+    return new Response(JSON.stringify(results), {
       status: 201,
       headers: {
         "Content-Type": "application/json",

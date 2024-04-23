@@ -13,8 +13,8 @@ import {
   Table,
   Text,
 } from "@mantine/core";
-import { IconFile, IconSearch } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
+import { ExportButton } from "./ExportButton";
 
 export function OrdersDisplay() {
   const [value, setValue] = useState("all");
@@ -80,11 +80,6 @@ export function OrdersDisplay() {
             />
           </Text>
         </Table.Td>
-        <Table.Td>
-          <ActionIcon variant="subtle" color="gray">
-            <IconSearch />
-          </ActionIcon>
-        </Table.Td>
       </Table.Tr>
     ));
 
@@ -105,9 +100,7 @@ export function OrdersDisplay() {
               { label: "Month", value: "30" },
             ]}
           />
-          <Button leftSection={<IconFile />} variant="default">
-            Export
-          </Button>
+          <ExportButton data={orderData} />
         </Group>
         <Card withBorder radius="md" p="md">
           <div>
@@ -153,7 +146,6 @@ export function OrdersDisplay() {
                       Amount
                     </Text>
                   </Table.Th>
-                  <Table.Th />
                 </Table.Tr>
               </Table.Thead>
               <Table.Tbody>{orders}</Table.Tbody>

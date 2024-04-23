@@ -1,11 +1,7 @@
-// src/app/api/listOrder/route.ts
-import prisma from "../../../prismaClient";
-// import bcrypt from "bcryptjs";
+import prisma from "@/prismaClient";
 
 export async function POST(request: Request) {
   try {
-    // const incomingPayload = await request.json();
-
     const orders = await prisma.order.findMany({
       include: {
         orderItems: {

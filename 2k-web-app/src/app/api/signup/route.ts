@@ -1,12 +1,9 @@
-// src/app/api/signup/route.ts
-import prisma from "../../../prismaClient";
+import prisma from "@/prismaClient";
 import bcrypt from "bcryptjs";
 
 export async function POST(request: Request) {
   try {
     const incomingPayload = await request.json();
-    // console.log("Incoming payload:", incomingPayload);
-
     if (!incomingPayload.username || !incomingPayload.password) {
       return new Response("Missing required fields", { status: 400 });
     }

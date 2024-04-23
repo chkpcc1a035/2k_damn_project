@@ -1,5 +1,5 @@
 //src/types.ts
-type CartType = {
+export type CartType = {
   product_id: string;
   product_image: string;
   product_name: string;
@@ -7,20 +7,20 @@ type CartType = {
   quantity: number;
 };
 
-type ProductType = {
-  product_id: string;
-  product_image: string;
-  product_name: string;
-  product_description: string;
-  product_tag: string | null;
-  product_features: string[];
-  product_price: number;
-  product_stock: number;
-  product_quantity: number;
-  product_createdAt: string;
+export type ProductType = {
+  id: string;
+  image: string;
+  name: string;
+  description: string;
+  tag: string | null;
+  features: string;
+  price: number;
+  stock: number;
+  quantity: number;
+  createdAt: string;
 };
 
-type OrderType = {
+export type OrderType = {
   order_id: string;
   order_username: string;
   order_status: string;
@@ -54,7 +54,7 @@ type OrderType = {
   };
 };
 
-type CustomerType = {
+export type CustomerType = {
   customer_id: string;
   customer_username: string;
   customer_orders: number;
@@ -62,30 +62,31 @@ type CustomerType = {
   customer_createdAt: string;
 };
 
-export interface Product {
+export type Product = {
   id: string;
   image: string;
   name: string;
   description: string;
-  tag: string;
-  features: string; // Serialized JSON string or could be converted to string[]
+  tag: string | null;
+  features: string;
   price: number;
   stock: number;
   quantity: number;
   createdAt: string;
-}
+};
 
-export interface OrderItem {
+export type OrderItem = {
   id: number;
   orderId: number;
   productId: string;
   quantity: number;
   productPrice: number;
   product: Product;
-}
+};
 
-export interface Customer {
+export type Customer = {
   id: number;
+  username: string;
   name: string;
   email: string;
   phone: string;
@@ -97,9 +98,11 @@ export interface Customer {
   cardDate: string;
   cardCVC: string;
   createdAt: string;
-}
+  orders?: number;
+  spend?: number;
+};
 
-export interface Order {
+export type Order = {
   id: number;
   customerId: number;
   orderTotal: number;
@@ -111,9 +114,8 @@ export interface Order {
   createdAt: string;
   orderItems: OrderItem[];
   customer: Customer;
-}
+};
 
-// If you need to handle an array of such Order objects:
 export type OrdersArray = Order[];
 
 export type ProductArray = Product[];

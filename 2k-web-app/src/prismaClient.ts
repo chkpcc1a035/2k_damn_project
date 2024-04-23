@@ -6,7 +6,6 @@ let prisma: PrismaClient;
 if (process.env.NODE_ENV === "production") {
   prisma = new PrismaClient();
 } else {
-  // Ensure that in development only one instance is used across all modules
   // eslint-disable-next-line
   if (!(global as any).prisma) {
     (global as any).prisma = new PrismaClient({

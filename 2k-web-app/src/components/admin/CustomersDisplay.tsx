@@ -3,7 +3,7 @@
 import { CustomerArray } from "@/types";
 import {
   ActionIcon,
-  Button,
+  Box,
   Card,
   Group,
   NumberFormatter,
@@ -13,6 +13,7 @@ import {
 } from "@mantine/core";
 import { IconDots, IconFile, IconSearch, IconTrash } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
+import { ExportButton } from "./ExportButton";
 
 export function CustomersDisplay() {
   const [customerData, setCustomerData] = useState<CustomerArray>([]);
@@ -26,33 +27,28 @@ export function CustomersDisplay() {
         },
       });
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setCustomerData(data);
     }
 
-    fetchData(); // Call the async function inside useEffect
-  }, []); // Dependency array to run only once on component mount
+    fetchData();
+  }, []);
   const customers = customerData.map((item, index) => (
     <Table.Tr key={index}>
       <Table.Td>
         <Text fz={{ base: "sm" }}>{item.name}</Text>
         <Text fz={{ base: "xs" }} c={"dimmed"}>
-          {item.id}
+          {item.username}
         </Text>
       </Table.Td>
       <Table.Td>
-        <Text fz={{ base: "sm" }} lineClamp={1}>
-          999
-          {/*placeholder for another query of customer id in order table count */}
-        </Text>
+        <Text fz={{ base: "sm" }}>{item.orders}</Text>
       </Table.Td>
       <Table.Td>
         <Text fz={{ base: "sm" }}>
           <NumberFormatter
             prefix="$ "
-            value={
-              99999 //placeholder for another count total in customer id and order table
-            }
+            value={item.spend}
             thousandSeparator
             decimalScale={2}
             fixedDecimalScale
@@ -83,13 +79,8 @@ export function CustomersDisplay() {
           Customers
         </Text>
         <Group justify="space-between">
-          <Button
-            leftSection={<IconFile />}
-            variant="default"
-            ml={{ base: 0, xs: "auto" }}
-          >
-            Export
-          </Button>
+          <Box></Box>
+          <ExportButton data={customerData} />
         </Group>
         <Card withBorder radius="md" p="md">
           <div>

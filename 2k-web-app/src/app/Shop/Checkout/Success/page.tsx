@@ -23,9 +23,10 @@ export default function Page() {
                 Order Success!
               </Text>
               <Text ta="center" c="dimmed">
-                We'll handle the rest. For any inquiries, our customer support
-                team is here to assist you.
+                We&apos;ll handle the rest. For any inquiries, our customer
+                support team is here to assist you.
               </Text>
+
               <Anchor href="/Shop" underline="never">
                 <Button>Back to Home</Button>
               </Anchor>
